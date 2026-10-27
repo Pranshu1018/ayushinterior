@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* Housemood-derived tokens */
+@theme {
+  --color-bg: #f1f1f1;
+  --color-paper: #ffffff;
+  --color-ink: #0d0d0d;
+  --color-grey: #828487;
+  --color-line: #d6dbdc;
+  --color-beige: #f1dfc2;
+  --color-beige-deep: #c9a77a;
+  --color-yellow: #ffd900;
+  --color-dark: #141414;
+  --color-dark-2: #1e1e1e;
+  --color-whatsapp: #1fae55;
+
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease-hm: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-hm: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--color-yellow); color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.045em; line-height: 0.95; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  img { user-select: none; -webkit-user-drag: none; }
+}
+
+@layer components {
+  .wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
+  @media (min-width: 1280px) { .wrap { padding-inline: 2.5rem; } }
+
+  /* Section label: "WHAT WE PROUD OF" */
+  .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }
+  .sublabel { font-size: 0.8125rem; color: var(--color-grey); line-height: 1.4; max-width: 15rem; }
+
+  /* Display heading: "Our Projects:" */
+  .display { font-size: clamp(2.6rem, 6.2vw, 5.6rem); font-weight: 600; letter-spacing: -0.055em; line-height: 0.92; }
+  .giant { font-size: clamp(3.1rem, 9.6vw, 9.6rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; }
+
+  .rule { height: 2px; background: var(--color-ink); }
+
+  /* Pill button with yellow round arrow: "Say Hello ->" */
+  .pill {
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+    min-height: 3rem; padding: 0.375rem 0.375rem 0.375rem 1.25rem;
+    border-radius: 999px; font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em;
+    background: #fff; color: var(--color-ink);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s var(--ease-out-hm);
+  }
+  .pill .dot {
+    display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px;
+    background: var(--color-yellow); color: var(--color-ink); flex-shrink: 0;
+    transition: transform 0.45s var(--ease-out-hm);
+  }
+  .pill:hover .dot { transform: rotate(-45deg); }
+  .pill:active { transform: scale(0.98); }
+  .pill-glass { background: rgb(255 255 255 / 0.12); color: #fff; border: 1px solid rgb(255 255 255 / 0.35); backdrop-filter: blur(12px); }
+  .pill-glass:hover { background: rgb(255 255 255 / 0.22); }
+  .pill-dark { background: var(--color-ink); color: #fff; }
+  .pill-dark:hover { background: #262626; }
+
+  .round {
+    display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px;
+    border: 1px solid var(--color-line); background: #fff; transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .round:hover { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
+  .round:disabled { opacity: 0.35; pointer-events: none; }
+
+  /* Crosshair "+" marks used on Housemood grids */
+  .cross { position: absolute; width: 21px; height: 21px; pointer-events: none; }
+  .cross::before, .cross::after { content: ""; position: absolute; background: var(--color-line); }
+  .cross::before { left: 10px; top: 0; width: 1px; height: 100%; }
+  .cross::after { top: 10px; left: 0; height: 1px; width: 100%; }
+
+  /* Text revealed line by line from a mask */
+  .mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .mask > span { display: block; }
+  [data-reveal-mask] > span { display: inline-block; }
+
+  /* Scroll reveal (JS adds .in) */
+  .js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease-out-hm), transform 0.9s var(--ease-out-hm); transition-delay: var(--d, 0ms); }
+  .js [data-reveal].in { opacity: 1; transform: none; }
+  [data-reveal-mask] { overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .js [data-reveal-mask] > span { transform: translateY(105%); transition: transform 1s var(--ease-out-hm); transition-delay: var(--d, 0ms); }
+  .js [data-reveal-mask].in > span { transform: none; }
+
+  .ticker-track { animation: ticker 32s linear infinite; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .js [data-reveal], .js [data-reveal-mask] > span { opacity: 1; transform: none; }
+}

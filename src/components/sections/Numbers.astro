@@ -1,0 +1,54 @@
+---
+import Icon from '../Icon.astro';
+import { img } from '../../data/site';
+import { stats } from '../../data/content';
+const year = new Date().getFullYear();
+---
+<section id="numbers" class="relative py-20 md:py-32">
+  <div class="wrap">
+    <div class="grid gap-6 md:grid-cols-[1fr_2.6fr]">
+      <p class="text-[0.75rem] font-semibold text-grey md:pt-2 md:text-right md:pr-6" data-reveal>{year}</p>
+      <p class="max-w-4xl text-[clamp(1.35rem,2.3vw,2.1rem)] font-medium leading-[1.25] tracking-[-0.035em]" data-reveal style="--d:80ms">
+        From a single wardrobe to a complete 4BHK makeover, we design, build and deliver interiors that fit your life and your budget.
+        <span class="text-grey">Our numbers speak better than words:</span>
+      </p>
+    </div>
+
+    <div class="relative mt-16 grid grid-cols-2 gap-x-6 gap-y-14 md:mt-24 md:grid-cols-4">
+      <span class="cross left-[24%] top-[46%] hidden md:block"></span>
+      <span class="cross left-[49%] top-[86%] hidden md:block"></span>
+      <span class="cross left-[74%] top-[46%] hidden md:block"></span>
+      {stats.map((s, i) => (
+        <div class={`${i % 2 ? 'md:mt-20' : ''}`} data-reveal style={`--d:${i * 90}ms`}>
+          <p class="text-[clamp(2.6rem,5vw,4.6rem)] font-semibold leading-none tracking-[-0.06em] tabular-nums"><span data-count={s.value} data-from={s.value > 1000 ? s.value - 40 : 0}>{s.value}</span>{s.suffix}</p>
+          <p class="mt-3 text-[1.05rem] font-semibold tracking-[-0.02em]">{s.label}</p>
+          <p class="mt-1 text-[0.8rem] text-grey">{s.note}</p>
+          <div class="mt-5 flex">
+            {s.thumbs.map((t, k) => <img src={img(t, 96, 96, 60)} alt="" loading="lazy" width="48" height="48" class={`size-11 rounded-lg border-2 border-bg object-cover ${k ? '-ml-3' : ''}`} />)}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 flex flex-wrap items-center gap-6 md:ml-[27.7%] md:mt-20" data-reveal>
+      <a href="#quote" class="pill w-full max-w-[22rem] shadow-[0_8px_30px_-16px_rgb(0_0_0/0.35)]">Want your own Design? <span class="dot"><Icon name="arrow" size={17} /></span></a>
+      <p class="flex items-center gap-2 text-[0.8rem] text-grey">Slots available for this month <span class="size-1.5 animate-pulse rounded-full bg-[#2bd36b]"></span></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Count-up numbers when they come into view
+  const els = document.querySelectorAll<HTMLElement>('[data-count]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const el = e.target as HTMLElement, to = +el.dataset.count!, from = +(el.dataset.from || 0);
+    if (reduce) return;
+    const t0 = performance.now(), dur = 1600;
+    const tick = (t: number) => { const p = Math.min(1, (t - t0) / dur), k = 1 - Math.pow(1 - p, 4); el.textContent = String(Math.round(from + (to - from) * k)); if (p < 1) requestAnimationFrame(tick); };
+    el.textContent = String(from); requestAnimationFrame(tick);
+  }), { threshold: 0.6 });
+  els.forEach((el) => io.observe(el));
+</script>

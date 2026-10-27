@@ -1,0 +1,40 @@
+---
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import QuoteForm from '../../islands/QuoteForm';
+import { site, wa } from '../../data/site';
+import { quoteServices } from '../../data/content';
+const next = [
+  ['We call you back', `Within 2 working hours (${site.hours}).`],
+  ['Free site visit', 'A designer measures your home and understands what you want.'],
+  ['Design + written quote', 'Layouts, 3D views and an itemised quote. No obligation.'],
+];
+---
+<section id="quote" class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="Let's start" sub="Free site visit · Written quote · No obligation" title="Get a Quote:" />
+    <div class="mt-10 grid gap-10 md:mt-14 md:grid-cols-[27%_1fr] md:gap-0">
+      <div class="md:pr-10" data-reveal>
+        <p class="text-[0.75rem] font-bold uppercase">What happens next</p>
+        <ol class="mt-5 space-y-6">
+          {next.map(([t, b], i) => (
+            <li class="flex gap-4"><span class="text-[0.75rem] font-semibold text-grey">0{i + 1}.</span><div><p class="font-semibold tracking-[-0.02em]">{t}</p><p class="mt-1 text-[0.85rem] text-grey">{b}</p></div></li>
+          ))}
+        </ol>
+        <div class="mt-10 space-y-3 border-t border-line pt-6">
+          <p class="text-[0.8rem] text-grey">Prefer to talk?</p>
+          <a href={site.phoneHref} data-track="click_call" class="block text-[1.6rem] font-semibold tracking-[-0.04em] hover:underline">{site.phone}</a>
+          <a href={wa(`Hi ${site.name}, I'd like a quote for my home interiors.`)} target="_blank" rel="noopener" data-track="click_whatsapp" class="inline-flex items-center gap-2 font-semibold text-whatsapp"><Icon name="whatsapp" size={18} /> Chat on WhatsApp</a>
+        </div>
+      </div>
+      <div data-reveal style="--d:100ms">
+        <QuoteForm client:idle services={quoteServices} localities={[...site.localities]} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .q-step { animation: q-in 0.6s var(--ease-out-hm) both; }
+  @keyframes q-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+</style>

@@ -1,0 +1,61 @@
+---
+import Logo from '../Logo.astro';
+import SectionHead from '../SectionHead.astro';
+import { img } from '../../data/site';
+import { advantages as A } from '../../data/content';
+---
+<section class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="Why Ayush Interior" sub="What you get when one team owns your project" title="Advantages:" rule={false} />
+
+    <div class="mt-10 grid auto-rows-[minmax(200px,auto)] grid-cols-2 gap-3 md:mt-14 md:grid-cols-6 md:gap-4">
+      <!-- Logo tile -->
+      <div class="relative col-span-2 flex min-h-[220px] flex-col justify-end overflow-hidden rounded-[12px] bg-white p-6 md:col-span-2" data-reveal>
+        <span aria-hidden="true" class="absolute left-1/2 top-0 h-[55%] w-px bg-line"></span>
+        <span aria-hidden="true" class="absolute left-1/2 top-[24%] -translate-x-1/2 text-[7rem] font-semibold leading-none tracking-[-0.06em] text-bg">&amp;</span>
+        <div class="relative flex items-end justify-between gap-3 text-[0.75rem] font-semibold text-grey">
+          <span>Design</span><Logo class="text-[1.2rem]" /><span>Execution</span>
+        </div>
+      </div>
+      <!-- Pricing -->
+      <div class="group relative col-span-2 overflow-hidden rounded-[12px] md:col-span-3" data-reveal style="--d:60ms">
+        <img src={img(A.pricing.img, 1000, 520)} alt="" loading="lazy" width="1000" height="520" class="absolute inset-0 size-full object-cover transition duration-1000 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <p class="absolute bottom-5 left-5 max-w-[14rem] text-[1.2rem] font-semibold leading-tight tracking-[-0.03em] text-white">Transparent, Itemised Pricing</p>
+      </div>
+      <!-- 3D -->
+      <div class="group relative overflow-hidden rounded-[12px] md:col-span-1" data-reveal style="--d:120ms">
+        <img src={img(A.threeD.img, 500, 520)} alt="" loading="lazy" width="500" height="520" class="absolute inset-0 size-full object-cover transition duration-1000 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-black/30"></div>
+        <p class="absolute inset-0 grid place-items-center p-3 text-center text-[1rem] font-semibold leading-tight tracking-[-0.02em] text-white">3D Before<br />We Build</p>
+      </div>
+      <!-- Stack -->
+      <div class="relative col-span-2 overflow-hidden rounded-[12px] bg-[linear-gradient(160deg,#6b4a33,#2b211b)] p-6 text-white md:col-span-2 md:row-span-1" data-reveal>
+        <p class="flex items-start gap-2"><span class="text-[3.2rem] font-semibold leading-none tracking-[-0.06em]">650+</span><span class="mt-1 text-[0.72rem] font-semibold leading-tight">Projects<br />delivered</span></p>
+        <div class="stack relative mx-auto mt-4 h-28 w-full max-w-xs">
+          {A.stack.map((s, i) => <img src={img(s, 240, 180, 60)} alt="" loading="lazy" width="120" height="90" class="absolute top-0 h-[90px] w-[120px] rounded border-[3px] border-white object-cover shadow-lg transition duration-500" style={`left:${i * 22}%;transform:rotate(${(i - 1.5) * 6}deg)`} />)}
+        </div>
+        <p class="mt-2 text-[1.05rem] font-semibold tracking-[-0.02em]">Strong Portfolio &amp; Reputation</p>
+      </div>
+      <!-- Warranty -->
+      <div class="group relative overflow-hidden rounded-[12px] md:col-span-1" data-reveal style="--d:60ms">
+        <img src={img(A.warranty.img, 500, 520)} alt="" loading="lazy" width="500" height="520" class="absolute inset-0 size-full object-cover transition duration-1000 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/10"></div>
+        <p class="absolute bottom-4 left-4 right-4 text-white"><span class="block text-[2.4rem] font-semibold leading-none tracking-[-0.06em]">10 yr</span><span class="text-[0.8rem] font-semibold">Warranty on woodwork</span></p>
+      </div>
+      <!-- Detail -->
+      <div class="group relative col-span-2 min-h-[220px] overflow-hidden rounded-[12px] bg-white md:col-span-3" data-reveal style="--d:120ms">
+        <img src={img(A.detail.img, 900, 520)} alt="" loading="lazy" width="900" height="520" class="absolute inset-y-0 right-0 h-full w-[58%] object-cover transition duration-1000 group-hover:scale-105" />
+        <div class="relative max-w-[45%] p-6">
+          <span class="text-yellow">✦</span>
+          <p class="mt-2 text-[1.2rem] font-semibold leading-tight tracking-[-0.03em]">Serious Attention to Detail</p>
+          <p class="mt-3 text-[0.85rem] text-grey">Edge banding, grain matching, flush shadow gaps. The things you notice every day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack:hover img { transform: rotate(0deg) translateY(-6px) !important; }
+</style>

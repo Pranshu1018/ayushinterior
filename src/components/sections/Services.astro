@@ -1,0 +1,69 @@
+---
+// Replaces Housemood's team section: an index of services with a floating image that follows the cursor.
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import { img } from '../../data/site';
+import { services } from '../../data/content';
+---
+<section id="services" class="relative py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="What we do" sub="Everything your home needs, designed and built by one team" title="Our Services:" />
+
+    <div class="mt-10 grid gap-10 md:mt-16 md:grid-cols-[27%_1fr] md:gap-0">
+      <div class="md:pr-10" data-reveal>
+        <p class="text-[1.35rem] font-medium leading-[1.25] tracking-[-0.03em]">One accountable team for design, carpentry, civil, electrical and finishing work, so nothing falls between contractors.</p>
+        <p class="mt-6 text-[0.85rem] text-grey">Prices are starting points. You get an itemised written quote after a free site visit.</p>
+      </div>
+
+      <ul class="svc-list border-t border-line" data-cursor="Quote">
+        {services.map((s, i) => (
+          <li data-reveal style={`--d:${Math.min(i, 5) * 50}ms`}>
+            <a href={`#quote`} data-service={s.name} data-img={img(s.img, 700, 860)} class="svc-row group relative grid grid-cols-[2.2rem_1fr_auto] items-center gap-4 border-b border-line py-5 md:grid-cols-[3rem_1.1fr_1fr_auto] md:py-7">
+              <span class="text-[0.75rem] font-semibold text-grey">{String(i + 1).padStart(2, '0')}.</span>
+              <span class="flex items-center gap-4">
+                <img src={img(s.img, 120, 120, 55)} alt="" loading="lazy" width="56" height="56" class="size-12 rounded-md object-cover md:hidden" />
+                <span class="text-[clamp(1.3rem,2.4vw,2.4rem)] font-semibold leading-none tracking-[-0.05em] transition duration-500 group-hover:translate-x-2">{s.name}</span>
+              </span>
+              <span class="hidden text-[0.9rem] leading-snug text-grey md:block md:pr-8">{s.desc}</span>
+              <span class="flex items-center gap-3 text-right">
+                <span class="hidden text-[0.8rem] font-semibold sm:block">from {s.from}</span>
+                <span class="grid size-10 place-items-center rounded-full border border-line transition duration-300 group-hover:border-yellow group-hover:bg-yellow"><Icon name="arrow" size={17} class="-rotate-45 transition duration-300 group-hover:rotate-0" /></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Floating preview image (desktop) -->
+  <div id="svc-float" aria-hidden="true"><img alt="" /></div>
+</section>
+
+<style>
+  #svc-float { position: fixed; left: 0; top: 0; z-index: 40; width: 260px; height: 320px; pointer-events: none; opacity: 0; transform: translate3d(-999px, -999px, 0); transition: opacity 0.35s; }
+  #svc-float img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; transform: scale(0.85) rotate(-4deg); transition: transform 0.6s var(--ease-out-hm); box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.45); }
+  #svc-float.show { opacity: 1; }
+  #svc-float.show img { transform: scale(1) rotate(-3deg); }
+  @media (pointer: coarse), (max-width: 767px) { #svc-float { display: none; } }
+</style>
+
+<script>
+  // Click a service -> preselect it in the quote form
+  document.querySelectorAll<HTMLAnchorElement>('.svc-row').forEach((a) => a.addEventListener('click', () => {
+    (window as any).__quoteService = a.dataset.service;
+    window.dispatchEvent(new CustomEvent('quote:service', { detail: a.dataset.service }));
+  }));
+
+  const float = document.getElementById('svc-float');
+  const list = document.querySelector('.svc-list');
+  if (float && list && matchMedia('(pointer: fine)').matches) {
+    const im = float.querySelector('img')!;
+    let x = 0, y = 0, cx = 0, cy = 0, raf = 0;
+    const loop = () => { cx += (x - cx) * 0.14; cy += (y - cy) * 0.14; float.style.transform = `translate3d(${cx + 40}px, ${cy - 160}px, 0)`; raf = requestAnimationFrame(loop); };
+    list.querySelectorAll<HTMLElement>('.svc-row').forEach((row) => row.addEventListener('pointerenter', () => { if (im.src !== row.dataset.img) im.src = row.dataset.img!; }));
+    list.addEventListener('pointerenter', (e) => { const pe = e as PointerEvent; cx = x = pe.clientX; cy = y = pe.clientY; float.classList.add('show'); if (!raf) loop(); });
+    list.addEventListener('pointermove', (e) => { const pe = e as PointerEvent; x = pe.clientX; y = pe.clientY; });
+    list.addEventListener('pointerleave', () => { float.classList.remove('show'); cancelAnimationFrame(raf); raf = 0; });
+  }
+</script>

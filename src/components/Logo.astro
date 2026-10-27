@@ -1,0 +1,31 @@
+---
+// Wordmark: AYUSH INTERIOR, with the O drawn as a ring around a yellow dot (echoing Housemood's OO mark).
+interface Props { class?: string; light?: boolean }
+const { class: className = '', light = false } = Astro.props;
+---
+<span class={`logo inline-flex items-baseline whitespace-nowrap font-[750] uppercase leading-none tracking-[-0.035em] ${light ? 'text-white' : 'text-ink'} ${className}`} aria-label="Ayush Interior" role="img">
+  <span aria-hidden="true">Ayush&nbsp;Interi</span><span class="logo-o" aria-hidden="true"></span><span aria-hidden="true">r</span>
+</span>
+
+<style>
+  .logo-o {
+    position: relative;
+    display: inline-block;
+    width: 0.74em;
+    height: 0.74em;
+    margin: 0 0.035em;
+    border: 0.15em solid currentColor;
+    border-radius: 999px;
+    transform: translateY(0.02em);
+  }
+  .logo-o::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 0.2em;
+    height: 0.2em;
+    border-radius: 999px;
+    background: var(--color-yellow);
+    transform: translate(-50%, -50%);
+  }
+</style>

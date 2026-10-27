@@ -1,0 +1,15 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { site } from '../data/site';
+// TODO-REAL: have this reviewed for the Digital Personal Data Protection Act, 2023.
+---
+<LegalPage title="Privacy policy">
+  <h2>What we collect</h2>
+  <p>When you request a quote we collect your name, mobile number, area, optional email and the project details you share, plus the page and campaign that brought you to us (for example UTM tags).</p>
+  <h2>How we use it</h2>
+  <p>Only to respond to your request: to call or WhatsApp you, schedule a site visit and send your quote. We never sell or share your details.</p>
+  <h2>Your rights</h2>
+  <p>You can ask us to correct or delete your data at any time by writing to {site.email} or messaging us on WhatsApp.</p>
+  <h2>Contact</h2>
+  <p>{site.legal}, {site.addressLines.join(', ')}. Phone {site.phone}.</p>
+</LegalPage>

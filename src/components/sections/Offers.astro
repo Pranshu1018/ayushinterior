@@ -1,0 +1,11 @@
+---
+import { offers } from '../../data/content';
+const items = [...offers, ...offers];
+---
+<div class="overflow-hidden bg-beige py-5 md:py-6" aria-label="Current offers">
+  <ul class="ticker-track flex w-max items-center gap-10 whitespace-nowrap text-[clamp(1.1rem,1.6vw,1.45rem)] font-semibold tracking-[-0.035em]">
+    {items.map((o, i) => (
+      <li class="flex items-center gap-10" aria-hidden={i >= offers.length ? 'true' : undefined}>{o}<span class="text-white" aria-hidden="true">++</span></li>
+    ))}
+  </ul>
+</div>

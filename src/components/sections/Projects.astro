@@ -1,0 +1,66 @@
+---
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import { img, srcset } from '../../data/site';
+import { projects } from '../../data/content';
+---
+<section id="projects" class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="What we are proud of" sub="Homes across Pune we've designed and built end to end" title="Our Projects:">
+      <div class="hidden items-center gap-3 pt-3 md:flex" data-reveal>
+        <button type="button" class="round" data-prev aria-label="Previous projects"><Icon name="arrow-left" /></button>
+        <span class="mx-3 text-[0.8rem] text-grey">Next page</span>
+        <button type="button" class="round !bg-ink !text-white" data-next aria-label="Next projects"><Icon name="arrow" /></button>
+      </div>
+    </SectionHead>
+  </div>
+
+  <div class="mt-10 md:mt-14">
+    <ul data-track-list data-cursor="Drag" class="no-scrollbar flex cursor-grab snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 md:scroll-px-8 md:gap-6 md:px-8 xl:scroll-px-10 xl:px-10 [&.dragging]:cursor-grabbing [&.dragging]:snap-none">
+      {projects.map((p, i) => (
+        <li class="w-[78vw] shrink-0 snap-start sm:w-[46vw] lg:w-[30vw]" data-reveal style={`--d:${Math.min(i, 3) * 90}ms`}>
+          <article class="group">
+            <div class="relative overflow-hidden rounded-[10px] bg-line">
+              <img src={img(p.img, 900, 1150)} srcset={srcset(p.img, [500, 900, 1300], 1.28)} sizes="(min-width:1024px) 30vw, (min-width:640px) 46vw, 78vw" alt={`${p.name}, ${p.type} in ${p.place}`} loading="lazy" width="900" height="1150" draggable="false" class="aspect-[4/5.1] w-full object-cover transition duration-[1.2s] ease-[var(--ease-out-hm)] group-hover:scale-[1.05]" />
+              <span class="absolute right-3 top-3 rounded-full bg-white/85 px-2.5 py-1 text-[0.72rem] font-semibold backdrop-blur">{p.type}</span>
+            </div>
+            <h3 class="mt-4 text-[clamp(1.35rem,1.8vw,1.75rem)] font-semibold tracking-[-0.04em]">{p.name}</h3>
+            <p class="mt-1 text-[0.8rem] font-medium text-grey">{p.place}<br />{p.year}</p>
+          </article>
+        </li>
+      ))}
+      <li class="w-4 shrink-0" aria-hidden="true"></li>
+    </ul>
+  </div>
+
+  <div class="wrap mt-10 flex items-center gap-6 md:mt-14">
+    <div class="relative h-px flex-1 bg-line"><span data-progress class="absolute inset-y-0 left-0 w-1/4 bg-ink transition-[width] duration-300"></span></div>
+    <a href="#transformation" class="group inline-flex items-center gap-3 text-[1.05rem] font-semibold tracking-[-0.02em]">See transformations <span class="grid size-8 place-items-center rounded-full transition group-hover:bg-yellow"><Icon name="arrow" size={18} /></span></a>
+  </div>
+</section>
+
+<script>
+  const list = document.querySelector<HTMLElement>('[data-track-list]')!;
+  const prev = document.querySelector<HTMLButtonElement>('#projects [data-prev]');
+  const next = document.querySelector<HTMLButtonElement>('#projects [data-next]');
+  const bar = document.querySelector<HTMLElement>('#projects [data-progress]');
+  const page = () => list.clientWidth * 0.8;
+  prev?.addEventListener('click', () => list.scrollBy({ left: -page(), behavior: 'smooth' }));
+  next?.addEventListener('click', () => list.scrollBy({ left: page(), behavior: 'smooth' }));
+  const update = () => {
+    const max = list.scrollWidth - list.clientWidth;
+    const p = max > 0 ? list.scrollLeft / max : 0;
+    if (bar) bar.style.width = `${15 + p * 85}%`;
+    if (prev) prev.disabled = list.scrollLeft < 4;
+    if (next) next.disabled = list.scrollLeft > max - 4;
+  };
+  list.addEventListener('scroll', update, { passive: true });
+  update();
+
+  // Mouse drag-to-scroll (touch already scrolls natively)
+  let down = false, sx = 0, sl = 0, moved = false;
+  list.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = list.scrollLeft; });
+  addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) { moved = true; list.classList.add('dragging'); } list.scrollLeft = sl - dx; });
+  addEventListener('pointerup', () => { if (!down) return; down = false; list.classList.remove('dragging'); });
+  list.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+</script>

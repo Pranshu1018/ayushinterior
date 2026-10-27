@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/sections/Hero.astro';
+import Numbers from '../components/sections/Numbers.astro';
+import Projects from '../components/sections/Projects.astro';
+import Services from '../components/sections/Services.astro';
+import Transformation from '../components/sections/Transformation.astro';
+import Process from '../components/sections/Process.astro';
+import Offers from '../components/sections/Offers.astro';
+import BigCta from '../components/sections/BigCta.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Advantages from '../components/sections/Advantages.astro';
+import Faq from '../components/sections/Faq.astro';
+import Quote from '../components/sections/Quote.astro';
+import Footer from '../components/sections/Footer.astro';
+import { site } from '../data/site';
+import { faqs } from '../data/content';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base
+  title={`Ayush Interior | Interior Designers & Home Renovation in ${site.city}`}
+  description={`Ayush Interior designs and builds complete home interiors in ${site.city}: modular kitchens, wardrobes, bathrooms, false ceilings and full renovations. Free site visit and a written quote.`}
+  schema={[faqSchema]}
+>
+  <Hero />
+  <Numbers />
+  <Projects />
+  <Services />
+  <Transformation />
+  <Process />
+  <Offers />
+  <BigCta />
+  <Testimonials />
+  <Advantages />
+  <Faq />
+  <Quote />
+  <Footer />
+</Base>

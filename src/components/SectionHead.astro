@@ -1,0 +1,18 @@
+---
+// Housemood section header: rule, LABEL + grey sub-label on the left, big "Title:" from the first third.
+interface Props { label: string; sub?: string; title: string; dark?: boolean; rule?: boolean; star?: boolean }
+const { label, sub, title, dark = false, rule = true, star = false } = Astro.props;
+---
+<div>
+  {rule && <div class={`h-[2px] ${dark ? 'bg-white/90' : 'bg-ink'}`} data-reveal></div>}
+  <div class="grid gap-6 pt-5 md:grid-cols-[27%_1fr] md:gap-0">
+    <div data-reveal>
+      <p class={`label ${dark ? 'text-white' : ''}`}>{label}</p>
+      {sub && <p class={`sublabel mt-3 ${dark ? '!text-white/50' : ''}`}>{sub}</p>}
+    </div>
+    <div class="flex items-start justify-between gap-6 md:pt-10">
+      <h2 class={`display ${dark ? 'text-white' : ''}`} data-reveal-mask><span>{title}{star && <sup class="ml-2 align-top text-[0.5em]">*</sup>}</span></h2>
+      <slot />
+    </div>
+  </div>
+</div>

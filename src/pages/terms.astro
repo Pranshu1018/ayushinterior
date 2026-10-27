@@ -1,0 +1,15 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { site } from '../data/site';
+// TODO-REAL: replace with your actual terms and warranty conditions.
+---
+<LegalPage title="Terms of service">
+  <h2>Quotes</h2>
+  <p>Every project is priced in an itemised, written quote after a site visit. The approved quote is final unless you request changes, which are shared and approved in writing before work continues.</p>
+  <h2>Payments</h2>
+  <p>A 10% booking amount, then staged payments tied to completed work. Every payment receives a GST invoice.</p>
+  <h2>Warranty</h2>
+  <p>10 years on woodwork and modular units, 1 year on workmanship for civil, painting and electrical work. Manufacturer warranties apply to appliances and fittings.</p>
+  <h2>Contact</h2>
+  <p>{site.email} · {site.phone}</p>
+</LegalPage>

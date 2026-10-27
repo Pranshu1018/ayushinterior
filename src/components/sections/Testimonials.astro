@@ -1,0 +1,52 @@
+---
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import { site } from '../../data/site';
+import { testimonials } from '../../data/content';
+---
+<section id="reviews" class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="What clients say" sub="The warm words of our clients keep us building better" title="Client Stories:" rule={false} />
+    <div class="mt-10 grid gap-10 md:mt-14 md:grid-cols-[27%_1fr] md:gap-0">
+      <div data-reveal>
+        <a href={site.googleUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-3 rounded-full bg-white py-2 pl-2 pr-5">
+          <span class="grid size-10 place-items-center rounded-full bg-bg text-[1.1rem] font-bold">G</span>
+          <span><span class="flex gap-0.5 text-[#f4b400]">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={13} />)}</span><span class="text-[0.8rem] font-semibold">{site.rating} · {site.reviews} Google reviews</span></span>
+        </a>
+        <p class="mt-8 text-[1.05rem] font-semibold tracking-[-0.02em]" data-t-name>{testimonials[0].name}</p>
+        <p class="text-[0.8rem] text-grey" data-t-home>{testimonials[0].home}</p>
+      </div>
+      <div data-reveal style="--d:100ms">
+        <Icon name="quote" size={44} class="text-line" />
+        <div class="relative mt-4 min-h-[13rem] md:min-h-[15rem]">
+          {testimonials.map((t, i) => (
+            <figure class={`t-slide absolute inset-0 transition duration-700 ${i === 0 ? 'opacity-100' : 'pointer-events-none translate-y-4 opacity-0'}`} data-i={i} data-name={t.name} data-home={t.home}>
+              <blockquote class="max-w-4xl text-[clamp(1.5rem,2.8vw,2.6rem)] font-semibold leading-[1.12] tracking-[-0.04em]">{t.quote}</blockquote>
+              <figcaption class="mt-6 max-w-xl text-[0.98rem] leading-relaxed text-grey">{t.story}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div class="mt-8 flex items-center gap-3">
+          <button type="button" class="round" data-t-prev aria-label="Previous story"><Icon name="arrow-left" /></button>
+          <button type="button" class="round" data-t-next aria-label="Next story"><Icon name="arrow" /></button>
+          <span class="ml-3 text-[0.8rem] font-semibold tabular-nums text-grey"><span data-t-idx>01</span> / 0{testimonials.length}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = [...document.querySelectorAll<HTMLElement>('.t-slide')];
+  const name = document.querySelector('[data-t-name]')!, home = document.querySelector('[data-t-home]')!, idx = document.querySelector('[data-t-idx]')!;
+  let cur = 0, timer = 0;
+  const show = (n: number) => {
+    cur = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => { const on = i === cur; s.classList.toggle('opacity-100', on); s.classList.toggle('opacity-0', !on); s.classList.toggle('translate-y-4', !on); s.classList.toggle('pointer-events-none', !on); });
+    name.textContent = slides[cur].dataset.name!; home.textContent = slides[cur].dataset.home!; idx.textContent = String(cur + 1).padStart(2, '0');
+  };
+  const auto = () => { clearInterval(timer); timer = window.setInterval(() => show(cur + 1), 7000); };
+  document.querySelector('[data-t-prev]')?.addEventListener('click', () => { show(cur - 1); auto(); });
+  document.querySelector('[data-t-next]')?.addEventListener('click', () => { show(cur + 1); auto(); });
+  auto();
+</script>

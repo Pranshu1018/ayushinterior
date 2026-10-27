@@ -1,0 +1,187 @@
+---
+import '../styles/global.css';
+import interWoff from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import Preloader from '../components/Preloader.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import { site, nav, wa, img } from '../data/site';
+import { P } from '../data/content';
+
+interface Props { title: string; description: string; noindex?: boolean; preloader?: boolean; schema?: Record<string, unknown>[] }
+const { title, description, noindex = false, preloader = true, schema = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const og = img(P.hero, 1200, 630);
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': ['HomeAndConstructionBusiness', 'GeneralContractor'],
+  '@id': `${site.url}/#business`,
+  name: site.legal,
+  url: site.url,
+  image: og,
+  telephone: site.phone,
+  email: site.email,
+  priceRange: '₹₹',
+  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, postalCode: site.postalCode, addressRegion: site.state, addressCountry: 'IN' },
+  openingHours: 'Mo-Sa 09:00-20:00',
+  areaServed: site.localities.map((l) => ({ '@type': 'Place', name: `${l}, ${site.city}` })),
+  sameAs: [site.googleUrl, ...Object.values(site.social)],
+};
+const gaId = import.meta.env.PUBLIC_GA_ID;
+---
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#f1f1f1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href={interWoff} as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={og} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    {[business, ...schema].map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    {gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', gaId);</script>
+      </>
+    )}
+  </head>
+  <body>
+    {preloader && <Preloader />}
+
+    <!-- Floating bar (appears after the hero) -->
+    <div id="floatbar" class="pointer-events-none fixed inset-x-0 top-3 z-[60] -translate-y-24 px-3 transition-transform duration-500 ease-[var(--ease-out-hm)] md:top-4 md:px-5">
+      <div class="flex items-center justify-between">
+        <a href="/" class="pointer-events-auto rounded-full bg-white/85 px-4 py-3 text-[0.95rem] shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md" aria-label="Ayush Interior home"><Logo /></a>
+        <div class="pointer-events-auto flex items-center gap-2">
+          <a href="#quote" class="pill hidden shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] sm:inline-flex">Get a Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
+          <button type="button" data-menu-open class="grid size-12 place-items-center rounded-full bg-ink text-white shadow-[0_6px_24px_-12px_rgb(0_0_0/0.5)]" aria-label="Open menu"><Icon name="menu" size={22} /></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-screen menu -->
+    <div id="menu" class="fixed inset-0 z-[90] flex flex-col bg-dark text-white" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+      <div class="wrap flex items-center justify-between py-5">
+        <a href="/" class="text-[1.05rem]"><Logo light /></a>
+        <button type="button" data-menu-close class="grid size-12 place-items-center rounded-full bg-white text-ink" aria-label="Close menu"><Icon name="close" size={22} /></button>
+      </div>
+      <div class="wrap grid flex-1 content-center gap-10 pb-10 lg:grid-cols-[1.4fr_1fr]">
+        <nav aria-label="Menu">
+          <ul>
+            {nav.map((n, i) => (
+              <li class="menu-item overflow-hidden border-b border-white/10" style={`--i:${i}`}>
+                <a href={n.href} data-menu-link class="group flex items-baseline gap-5 py-3 text-[clamp(2.1rem,5.4vw,4.6rem)] font-semibold leading-none tracking-[-0.05em] transition-colors hover:text-beige">
+                  <span class="text-[0.8rem] font-medium tracking-normal text-white/40">0{i + 1}.</span>{n.label}
+                  <span class="ml-auto translate-x-[-1rem] text-yellow opacity-0 transition duration-500 group-hover:translate-x-0 group-hover:opacity-100"><Icon name="arrow" size={36} /></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="space-y-6 text-white/70 lg:self-end">
+          <div><p class="label text-white">Visit</p><p class="mt-2">{site.addressLines.join(', ')}</p><p>{site.hours}</p></div>
+          <div><p class="label text-white">Talk</p><a href={site.phoneHref} data-track="click_call" class="mt-2 block text-2xl font-semibold tracking-tight text-white">{site.phone}</a><a href={`mailto:${site.email}`} class="block">{site.email}</a></div>
+          <a href={wa(`Hi ${site.name}, I'd like to discuss my home interiors.`)} data-track="click_whatsapp" target="_blank" rel="noopener" class="pill">Chat on WhatsApp <span class="dot !bg-whatsapp !text-white"><Icon name="whatsapp" size={17} /></span></a>
+        </div>
+      </div>
+    </div>
+
+    <main id="main"><slot /></main>
+
+    <!-- Mobile action bar -->
+    <div id="mbar" class="fixed inset-x-3 bottom-3 z-[55] translate-y-[150%] transition-transform duration-500 ease-[var(--ease-out-hm)] md:hidden">
+      <div class="flex items-center gap-1.5 rounded-full bg-ink p-1.5 shadow-[0_10px_30px_-10px_rgb(0_0_0/0.6)]">
+        <a href={site.phoneHref} data-track="click_call" class="grid size-12 shrink-0 place-items-center rounded-full bg-white/10 text-white" aria-label="Call"><Icon name="phone" size={20} /></a>
+        <a href={wa(`Hi ${site.name}, I'd like a quote for my home.`)} data-track="click_whatsapp" target="_blank" rel="noopener" class="grid size-12 shrink-0 place-items-center rounded-full bg-whatsapp text-white" aria-label="WhatsApp"><Icon name="whatsapp" size={21} /></a>
+        <a href="#quote" class="pill flex-1 !min-h-12">Get a Free Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
+      </div>
+    </div>
+
+    <!-- Custom cursor (fine pointers only) -->
+    <div id="cursor" aria-hidden="true"><span></span></div>
+
+    <script>
+      import { captureAttribution, track } from '../lib/lead';
+      captureAttribution();
+
+      const root = document.documentElement;
+
+      // Scroll reveals
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+      document.querySelectorAll('[data-reveal],[data-reveal-mask]').forEach((el) => io.observe(el));
+
+      // Floating bar + mobile bar after the hero
+      const fb = document.getElementById('floatbar');
+      const mb = document.getElementById('mbar');
+      const onScroll = () => {
+        const past = window.scrollY > window.innerHeight * 0.75;
+        fb?.classList.toggle('-translate-y-24', !past);
+        mb?.classList.toggle('translate-y-[150%]', !past);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Menu
+      const menu = document.getElementById('menu')!;
+      const openMenu = () => { menu.hidden = false; requestAnimationFrame(() => menu.classList.add('open')); root.style.overflow = 'hidden'; menu.querySelector<HTMLElement>('[data-menu-close]')?.focus(); };
+      const closeMenu = () => { menu.classList.remove('open'); root.style.overflow = ''; setTimeout(() => (menu.hidden = true), 450); };
+      document.querySelectorAll('[data-menu-open]').forEach((b) => b.addEventListener('click', openMenu));
+      menu.querySelectorAll('[data-menu-close],[data-menu-link]').forEach((b) => b.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) closeMenu(); });
+
+      // Call / WhatsApp conversion events
+      document.addEventListener('click', (e) => {
+        const el = (e.target as HTMLElement).closest<HTMLElement>('[data-track]');
+        if (el?.dataset.track) track(el.dataset.track, { page: location.pathname });
+      });
+
+      // Custom cursor: a dot that grows into a labelled disc over [data-cursor] areas
+      const cur = document.getElementById('cursor');
+      if (cur && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const label = cur.querySelector('span')!;
+        let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y, raf = 0;
+        const loop = () => { cx += (x - cx) * 0.2; cy += (y - cy) * 0.2; cur.style.transform = `translate3d(${cx}px, ${cy}px, 0)`; raf = Math.abs(x - cx) + Math.abs(y - cy) > 0.1 ? requestAnimationFrame(loop) : 0; };
+        addEventListener('pointermove', (e) => {
+          x = e.clientX; y = e.clientY; cur.classList.add('on');
+          const t = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor]');
+          cur.classList.toggle('big', !!t);
+          label.textContent = t?.dataset.cursor ?? '';
+          if (!raf) raf = requestAnimationFrame(loop);
+        }, { passive: true });
+        document.addEventListener('pointerleave', () => cur.classList.remove('on'));
+      }
+    </script>
+
+    <style is:global>
+      #menu { opacity: 0; transition: opacity 0.45s var(--ease-out-hm); }
+      #menu.open { opacity: 1; }
+      #menu .menu-item a { transform: translateY(110%); transition: transform 0.8s var(--ease-out-hm), color 0.3s; transition-delay: calc(var(--i) * 55ms + 120ms), 0s; }
+      #menu.open .menu-item a { transform: none; }
+
+      #cursor { position: fixed; left: 0; top: 0; z-index: 150; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+      #cursor.on { opacity: 1; }
+      #cursor span {
+        position: absolute; left: 0; top: 0; display: grid; place-items: center;
+        width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 999px;
+        background: var(--color-yellow); color: var(--color-ink); font-size: 0; font-weight: 700; letter-spacing: -0.01em;
+        transition: width 0.45s var(--ease-out-hm), height 0.45s var(--ease-out-hm), margin 0.45s var(--ease-out-hm), font-size 0.3s;
+      }
+      #cursor.big span { width: 84px; height: 84px; margin: -42px 0 0 -42px; font-size: 0.85rem; }
+      @media (pointer: coarse) { #cursor { display: none; } }
+    </style>
+  </body>
+</html>

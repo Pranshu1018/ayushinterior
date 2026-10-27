@@ -1,0 +1,30 @@
+---
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import { site, wa } from '../../data/site';
+import { faqs } from '../../data/content';
+---
+<section id="faq" class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="You might ask us" sub="Straight answers before you commit to anything" title="FAQ:" />
+    <div class="mt-8 md:ml-[27%] md:mt-12">
+      <div class="divide-y divide-line border-b border-line" data-reveal>
+        {faqs.map((f, i) => (
+          <details class="faq group" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-8 py-6 text-[clamp(1.05rem,1.5vw,1.3rem)] font-semibold tracking-[-0.03em] [&::-webkit-details-marker]:hidden">
+              {f.q}
+              <span class="grid size-9 shrink-0 place-items-center rounded-full transition duration-500 group-open:rotate-45 group-open:bg-yellow"><Icon name="plus" size={20} /></span>
+            </summary>
+            <div class="faq-body grid">
+              <p class="overflow-hidden pr-14 text-[0.98rem] leading-relaxed text-grey">{f.a}<span class="block h-6"></span></p>
+            </div>
+          </details>
+        ))}
+      </div>
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4" data-reveal>
+        <p class="text-[0.8rem] text-grey">If you want to know anything else:</p>
+        <a href={wa(`Hi ${site.name}, I have a question: `)} target="_blank" rel="noopener" data-track="click_whatsapp" class="group inline-flex items-center gap-3 text-[1.2rem] font-semibold tracking-[-0.03em]">Ask on WhatsApp <span class="grid size-8 place-items-center rounded-full transition group-hover:bg-yellow"><Icon name="arrow" size={18} /></span></a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Page not found | Ayush Interior" description="This page does not exist." noindex preloader={false}>
+  <section class="wrap flex min-h-[100svh] flex-col justify-center py-20">
+    <a href="/" class="mb-16 text-[1.1rem]"><Logo /></a>
+    <h1 class="giant">404<br /><span class="text-grey">This room isn't built yet.</span></h1>
+    <a href="/" class="pill pill-dark mt-12 w-fit">Back to home <span class="dot"><Icon name="arrow" size={17} /></span></a>
+  </section>
+</Base>

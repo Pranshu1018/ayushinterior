@@ -1,0 +1,39 @@
+---
+import SectionHead from '../SectionHead.astro';
+import { img } from '../../data/site';
+import { process } from '../../data/content';
+const [first, ...rest] = process;
+---
+<section id="process" class="relative overflow-hidden bg-dark py-16 text-white md:py-24">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.07] [background:repeating-linear-gradient(90deg,#fff_0_1px,transparent_1px_64px)]"></div>
+  <div class="wrap relative">
+    <SectionHead label="How we do it" sub="Seven clear stages, from first call to keys in hand" title="The Process:" dark rule={false} star>
+      <div class="hidden w-[22rem] shrink-0 lg:block" data-reveal>
+        <p class="mb-3 flex items-center gap-2 text-[0.75rem] text-white/45"><span class="h-px w-6 bg-white/30"></span>{first.n}.</p>
+        <img src={img(first.img, 700, 260)} alt="" loading="lazy" width="700" height="260" class="h-28 w-full rounded-md object-cover" />
+        <h3 class="mt-5 text-[1.35rem] font-semibold tracking-[-0.035em]">{first.title}</h3>
+        <p class="mt-2 text-[0.85rem] leading-relaxed text-white/55">{first.body}</p>
+      </div>
+    </SectionHead>
+
+    <ol class="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+      <li class="lg:hidden" data-reveal>
+        <p class="mb-3 flex items-center gap-2 text-[0.75rem] text-white/45"><span class="h-px w-6 bg-white/30"></span>{first.n}.</p>
+        <img src={img(first.img, 700, 260)} alt="" loading="lazy" width="700" height="260" class="h-28 w-full rounded-md object-cover" />
+        <h3 class="mt-5 text-[1.35rem] font-semibold tracking-[-0.035em]">{first.title}</h3>
+        <p class="mt-2 text-[0.85rem] leading-relaxed text-white/55">{first.body}</p>
+      </li>
+      {rest.map((s, i) => (
+        <li class="group" data-reveal style={`--d:${(i % 4) * 90}ms`}>
+          <p class="mb-3 flex items-center gap-2 text-[0.75rem] text-white/45"><span class="h-px w-6 bg-white/30 transition-all duration-500 group-hover:w-12 group-hover:bg-yellow"></span>{s.n}.</p>
+          <div class="overflow-hidden rounded-md"><img src={img(s.img, 700, 260)} alt="" loading="lazy" width="700" height="260" class="h-28 w-full object-cover grayscale-[40%] transition duration-700 group-hover:scale-105 group-hover:grayscale-0" /></div>
+          <h3 class="mt-5 text-[1.35rem] font-semibold tracking-[-0.035em]">{s.title}{s.star && <sup class="ml-1 text-yellow">*</sup>}</h3>
+          <p class="mt-2 text-[0.85rem] leading-relaxed text-white/55">{s.body}</p>
+        </li>
+      ))}
+      <li class="flex items-end sm:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-2" data-reveal>
+        <p class="flex items-center gap-2 text-[0.8rem] text-white/70"><span class="size-1.5 rounded-full bg-yellow"></span>* Includes a dedicated supervisor and daily WhatsApp photo updates</p>
+      </li>
+    </ol>
+  </div>
+</section>

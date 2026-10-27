@@ -1,0 +1,88 @@
+---
+// Before/after: a cinematic comparison with project tabs. Desktop: the split follows the mouse; touch: drag.
+import Icon from '../Icon.astro';
+import SectionHead from '../SectionHead.astro';
+import { img, srcset } from '../../data/site';
+import { transformations } from '../../data/content';
+const t0 = transformations[0];
+---
+<section id="transformation" class="py-16 md:py-24">
+  <div class="wrap">
+    <SectionHead label="See the difference" sub="Real budgets, real timelines. Move across the photo to compare." title="The Transformation:" />
+
+    <div class="mt-8 flex flex-wrap gap-2 md:ml-[27%] md:mt-10" role="tablist" aria-label="Choose a transformation" data-reveal>
+      {transformations.map((t, i) => (
+        <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-tab={t.id}
+          class="rounded-full border border-line bg-white px-5 py-2.5 text-[0.9rem] font-semibold transition aria-selected:border-ink aria-selected:bg-ink aria-selected:text-white hover:border-ink">{t.tab}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap mt-8">
+    <div class="grid gap-6 lg:grid-cols-[1fr_340px] lg:gap-8">
+      <div id="ba" class="ba relative isolate aspect-[4/5] select-none overflow-hidden rounded-[14px] bg-line sm:aspect-[16/10]" style="--pos:50%" data-cursor="Drag" data-reveal>
+        {transformations.map((t, i) => (
+          <div class={`ba-set absolute inset-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0'}`} data-set={t.id}>
+            <img src={img(t.after, 1600, 1000)} srcset={srcset(t.after, [700, 1100, 1600, 2000], 0.625)} sizes="(min-width:1024px) 70vw, 100vw" alt={`After: ${t.title}`} loading="lazy" width="1600" height="1000" draggable="false" class="absolute inset-0 size-full object-cover" />
+            <img src={img(t.before, 1600, 1000)} srcset={srcset(t.before, [700, 1100, 1600, 2000], 0.625)} sizes="(min-width:1024px) 70vw, 100vw" alt={`Before: ${t.title}`} loading="lazy" width="1600" height="1000" draggable="false" class="ba-before absolute inset-0 size-full object-cover" />
+          </div>
+        ))}
+        <div aria-hidden="true" class="ba-handle pointer-events-none absolute inset-y-0 z-10 w-[2px] -translate-x-1/2 bg-white">
+          <span class="absolute left-1/2 top-1/2 grid size-[4.5rem] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-yellow text-ink shadow-[0_10px_40px_rgb(0_0_0/0.35)]">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+        <span class="pointer-events-none absolute left-4 top-4 z-10 rounded-full bg-ink/75 px-3.5 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-white backdrop-blur">Before</span>
+        <span class="pointer-events-none absolute right-4 top-4 z-10 rounded-full bg-white/90 px-3.5 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-ink backdrop-blur">After</span>
+        <input type="range" min="0" max="100" value="50" step="0.5" aria-label="Compare before and after" class="ba-range absolute inset-0 z-20 size-full cursor-ew-resize opacity-0" />
+      </div>
+
+      <aside class="flex flex-col rounded-[14px] bg-white p-6 md:p-7" data-reveal style="--d:120ms">
+        <p class="label text-grey" data-f="place">{t0.place}</p>
+        <h3 class="mt-3 text-[clamp(1.6rem,2.4vw,2.2rem)] font-semibold leading-[1.02] tracking-[-0.045em]" data-f="title">{t0.title}</h3>
+        <dl class="mt-6 grid grid-cols-2 gap-4 border-y border-line py-5">
+          <div><dt class="text-[0.75rem] text-grey">Completed in</dt><dd class="text-3xl font-semibold tracking-[-0.05em]"><span data-f="days">{t0.days}</span> days</dd></div>
+          <div><dt class="text-[0.75rem] text-grey">Budget</dt><dd class="text-3xl font-semibold tracking-[-0.05em]" data-f="budget">{t0.budget}</dd></div>
+        </dl>
+        <ul class="mt-5 space-y-2.5 text-[0.92rem]" data-f="scope">
+          {t0.scope.map((s) => <li class="flex items-center gap-2.5"><span class="size-1.5 rounded-full bg-yellow"></span>{s}</li>)}
+        </ul>
+        <a href="#quote" class="pill pill-dark mt-8 w-full lg:mt-auto">Plan my transformation <span class="dot"><Icon name="arrow" size={17} /></span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ data: transformations }}>
+  const ba = document.getElementById('ba');
+  const range = ba.querySelector('.ba-range');
+  const set = (v) => { ba.style.setProperty('--pos', v + '%'); range.value = v; };
+  range.addEventListener('input', () => set(range.value));
+
+  // Desktop: the divider follows the pointer, no click needed
+  if (matchMedia('(pointer: fine)').matches) {
+    ba.addEventListener('pointermove', (e) => {
+      const r = ba.getBoundingClientRect();
+      set(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)).toFixed(1));
+    });
+  }
+
+  const tabs = document.querySelectorAll('#transformation [data-tab]');
+  const f = (k) => document.querySelector(`#transformation [data-f="${k}"]`);
+  tabs.forEach((tab) => tab.addEventListener('click', () => {
+    const t = data.find((d) => d.id === tab.dataset.tab);
+    tabs.forEach((b) => b.setAttribute('aria-selected', String(b === tab)));
+    ba.querySelectorAll('.ba-set').forEach((s) => { s.classList.toggle('opacity-100', s.dataset.set === t.id); s.classList.toggle('opacity-0', s.dataset.set !== t.id); });
+    f('place').textContent = t.place; f('title').textContent = t.title; f('days').textContent = t.days; f('budget').textContent = t.budget;
+    f('scope').innerHTML = t.scope.map((s) => `<li class="flex items-center gap-2.5"><span class="size-1.5 rounded-full bg-yellow"></span>${s}</li>`).join('');
+    // little sweep so the change is noticed
+    ba.classList.add('sweep'); set(85); setTimeout(() => { set(50); setTimeout(() => ba.classList.remove('sweep'), 900); }, 60);
+  }));
+</script>
+
+<style>
+  @property --pos { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+  .ba.sweep { transition: --pos 0.9s var(--ease-out-hm); }
+  .ba-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .ba-handle { left: var(--pos); }
+</style>

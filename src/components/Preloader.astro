@@ -1,0 +1,102 @@
+---
+// Housemood preloader, step for step:
+// 1. White screen split in three columns by hairlines that draw in; logo + tagline centred.
+// 2. Outer columns slide away in opposite directions, revealing the hero.
+// 3. Centre column squashes to a band, then a hairline under the logo, then the line shrinks to nothing.
+// 4. Logo fades out while the hero headline rises in.
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+---
+<div id="preloader" aria-hidden="true">
+  <div class="pl-col pl-left"></div>
+  <div class="pl-col pl-mid"></div>
+  <div class="pl-col pl-right"></div>
+  <span class="pl-vline pl-v1"></span>
+  <span class="pl-vline pl-v2"></span>
+  <div class="pl-brand">
+    <Logo class="text-[clamp(1.6rem,2.3vw,2.15rem)]" />
+    <span class="pl-rule"></span>
+    <span class="pl-tag"><span>Interiors &amp; Renovation</span><i></i><span>Since {site.founded}</span></span>
+  </div>
+</div>
+
+<style is:global>
+  #preloader { display: none; }
+  .js #preloader { display: block; position: fixed; inset: 0; z-index: 200; pointer-events: none; }
+  .pl-lock, .pl-lock body { overflow: hidden; }
+
+  .pl-col { position: absolute; top: 0; bottom: 0; width: calc(100% / 3 + 1px); background: #fff; will-change: transform; }
+  .pl-left { left: 0; }
+  .pl-mid { left: calc(100% / 3); transform-origin: 50% 50%; }
+  .pl-right { right: 0; }
+
+  .pl-vline { position: absolute; top: 0; bottom: 0; width: 1px; background: #d9dddf; transform: scaleY(0); }
+  .pl-v1 { left: calc(100% / 3); transform-origin: top; animation: pl-draw 1.1s var(--ease-hm) 0.15s forwards; }
+  .pl-v2 { left: calc(200% / 3); transform-origin: bottom; animation: pl-draw 1.1s var(--ease-hm) 0.35s forwards; }
+
+  .pl-brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: stretch; gap: 0.55rem; opacity: 0; animation: pl-in 0.7s var(--ease-out-hm) 0.1s forwards; }
+  .pl-rule { height: 1px; width: 38%; margin: 0 auto; background: #cfd3d4; transform: scaleX(0); animation: pl-grow 0.8s var(--ease-hm) 0.55s forwards; }
+  .pl-tag { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: -0.01em; color: var(--color-ink); }
+  .pl-tag i { width: 5px; height: 5px; border-radius: 99px; background: var(--color-yellow); }
+
+  /* Exit sequence (JS adds .pl-exit once the hero image is ready) */
+  .pl-exit .pl-vline { opacity: 0; transition: opacity 0.3s; }
+  .pl-exit .pl-left { animation: pl-down 0.95s var(--ease-hm) forwards; }
+  .pl-exit .pl-right { animation: pl-up 0.95s var(--ease-hm) 0.08s forwards; }
+  .pl-exit .pl-mid { animation: pl-squash 1.55s var(--ease-hm) 0.75s forwards; }
+  .pl-exit .pl-rule { opacity: 0; transition: opacity 0.4s 0.7s; }
+  .pl-exit .pl-brand { animation: pl-out 0.7s var(--ease-hm) 2.35s forwards; opacity: 1; }
+
+  @keyframes pl-draw { to { transform: scaleY(1); } }
+  @keyframes pl-grow { to { transform: scaleX(1); } }
+  @keyframes pl-in { from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); } to { opacity: 1; transform: translate(-50%, -50%); } }
+  @keyframes pl-out { to { opacity: 0; transform: translate(-50%, calc(-50% - 18px)); filter: blur(4px); } }
+  @keyframes pl-down { to { transform: translateY(101%); } }
+  @keyframes pl-up { to { transform: translateY(-101%); } }
+  @keyframes pl-squash {
+    0% { transform: scale(1, 1); }
+    38% { transform: scale(1, 0.042); }
+    58% { transform: scale(1, 0.0028); }
+    100% { transform: scale(0, 0.0028); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pl-exit { opacity: 0; transition: opacity 0.3s !important; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var pl = document.getElementById('preloader');
+    if (!pl || !root.classList.contains('js')) return;
+    root.classList.add('pl-lock');
+    var t0 = performance.now();
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var MIN = reduce ? 200 : 2300, MAX = 6000, started = false;
+
+    function finish() {
+      root.classList.remove('pl-lock');
+      root.classList.add('intro');
+      pl.remove();
+    }
+    function exit() {
+      if (started) return; started = true;
+      var wait = Math.max(0, MIN - (performance.now() - t0));
+      setTimeout(function () {
+        pl.classList.add('pl-exit');
+        if (reduce) { root.classList.add('intro'); setTimeout(finish, 350); return; }
+        setTimeout(function () { root.classList.add('intro'); }, 2250);
+        setTimeout(finish, 3100);
+      }, wait);
+    }
+    // Leave once the hero photo is decoded (or the page has loaded), never later than MAX.
+    function whenHero() {
+      var hero = document.querySelector('[data-hero-img]');
+      if (hero && hero.decode) hero.decode().then(exit, exit); else exit();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', whenHero); else whenHero();
+    window.addEventListener('load', exit);
+    setTimeout(exit, MAX);
+  })();
+</script>

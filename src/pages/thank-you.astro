@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<Base title={`Thank you | ${site.name}`} description="Your quote request has been received." noindex preloader={false}>
+  <section class="flex min-h-[100svh] flex-col">
+    <div class="wrap flex items-center justify-between py-6"><a href="/" class="text-[1.1rem]"><Logo /></a><a href="/" class="text-[0.85rem] font-semibold text-grey hover:text-ink">Back to site</a></div>
+    <div class="wrap flex flex-1 flex-col justify-center pb-20">
+      <div class="h-[2px] bg-ink"></div>
+      <div class="grid gap-8 pt-6 md:grid-cols-[27%_1fr]">
+        <p class="label">Request received <span id="ty-ref" class="mt-2 block font-medium normal-case text-grey"></span></p>
+        <div>
+          <h1 class="giant !text-[clamp(2.8rem,8vw,7.5rem)]"><span id="ty-name">Thank you.</span><br /><span class="text-grey">We'll call you soon.</span></h1>
+          <p class="mt-8 max-w-xl text-[1.15rem] leading-relaxed text-grey">A designer will call or WhatsApp you within <strong class="text-ink">2 working hours</strong> ({site.hours}) to fix your free site visit.</p>
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a id="ty-wa" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" data-track="click_whatsapp" class="pill pill-dark">Send photos of your space <span class="dot !bg-whatsapp !text-white"><Icon name="whatsapp" size={17} /></span></a>
+            <a href={site.phoneHref} data-track="click_call" class="pill">Call {site.phone} <span class="dot"><Icon name="phone" size={16} /></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script define:vars={{ wa: site.whatsapp, brand: site.name }}>
+    try {
+      const l = JSON.parse(sessionStorage.getItem('ai_last_lead') || 'null');
+      if (l) {
+        if (l.name) document.getElementById('ty-name').textContent = `Thank you, ${l.name.split(' ')[0]}.`;
+        document.getElementById('ty-ref').textContent = `Ref. ${l.ref}`;
+        const msg = [`Hi ${brand}, I just requested a quote (Ref ${l.ref}).`, l.services?.length ? `Services: ${l.services.join(', ')}` : '', l.locality ? `Area: ${l.locality}` : '', l.urgency ? `Start: ${l.urgency}` : '', 'Sharing photos/floor plan below:'].filter(Boolean).join('\n');
+        document.getElementById('ty-wa').href = `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`;
+      }
+    } catch (e) {}
+  </script>
+</Base>
