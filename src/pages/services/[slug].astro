@@ -1,0 +1,158 @@
+---
+import Base from '../../layouts/Base.astro';
+import InnerHeader from '../../components/InnerHeader.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import Quote from '../../components/sections/Quote.astro';
+import Footer from '../../components/sections/Footer.astro';
+import { site, wa, img, srcset } from '../../data/site';
+import { servicePages, areaPages, type ServicePage } from '../../data/pages';
+import { projects } from '../../data/content';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return servicePages.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: ServicePage };
+const from = s.prices[0].range.split('–')[0].trim();
+// Keep titles under ~62 characters so Google doesn't truncate them.
+const title = [`${s.keyword} | From ${from} | Ayush Interior`, `${s.keyword} | Ayush Interior`].find((t) => t.length <= 62) ?? `${s.keyword} | Ayush Interior`;
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Services', href: '/services' }, { name: s.name, href: `/services/${s.slug}` }];
+const others = servicePages.filter((x) => x.slug !== s.slug).slice(0, 4);
+const schema = [
+  serviceSchema({ name: `${s.name} in ${site.city}`, description: s.description, url: `/services/${s.slug}`, area: { '@type': 'City', name: site.city }, price: `${s.prices[0].item}: ${s.prices[0].range}` }),
+  breadcrumbSchema(crumbs),
+  faqSchema(s.faqs),
+];
+---
+<Base title={title} description={s.description} image={img(s.img, 1200, 630)} schema={schema} preloader={false} quoteHref="#quote">
+  <InnerHeader />
+
+  <section class="pb-14 pt-8 md:pb-20 md:pt-12">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <div class="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div>
+          <p class="label">{s.name} · {site.city}</p>
+          <h1 class="display mt-4 !text-[clamp(2.3rem,4.6vw,4.4rem)]">{s.h1}</h1>
+          {s.intro.map((p) => <p class="mt-5 max-w-2xl text-[1.08rem] leading-relaxed text-grey">{p}</p>)}
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#quote" class="pill pill-dark min-w-[15rem]">Get a free quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
+            <a href={wa(`Hi ${site.name}, I'm interested in ${s.name.toLowerCase()}.`)} target="_blank" rel="noopener" data-track="click_whatsapp" class="pill">WhatsApp us <span class="dot !bg-whatsapp !text-white"><Icon name="whatsapp" size={17} /></span></a>
+          </div>
+          <p class="mt-6 text-[0.85rem] text-grey">Starting from <strong class="text-ink">{s.prices[0].range.split('–')[0].trim()}</strong> · {site.rating}★ from {site.reviews} Google reviews</p>
+        </div>
+        <img src={img(s.img, 1100, 1000)} srcset={srcset(s.img, [600, 900, 1300], 0.9)} sizes="(min-width:1024px) 45vw, 100vw" alt={`${s.name} by Ayush Interior in ${site.city}`} width="1100" height="1000" fetchpriority="high" class="aspect-[11/10] w-full rounded-[14px] object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="wrap grid gap-10 md:grid-cols-[27%_1fr] md:gap-0">
+      <div><div class="rule mb-5"></div><p class="label">What's included</p></div>
+      <div>
+        <div class="rule mb-5 hidden md:block"></div>
+        <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+          {s.includes.map((i) => <li class="flex items-start gap-3 text-[1.05rem] font-medium tracking-[-0.02em]"><span class="mt-2 size-2 shrink-0 rounded-full bg-yellow"></span>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="wrap">
+      <div class="rule"></div>
+      <div class="grid gap-6 pt-5 md:grid-cols-[27%_1fr] md:gap-0">
+        <p class="label">Options</p>
+        <h2 class="display md:pt-6">Choose what fits:</h2>
+      </div>
+      <div class="mt-10 grid gap-4 md:ml-[27%] md:grid-cols-3">
+        {s.types.map((t, i) => (
+          <article class="rounded-[12px] bg-white p-6" data-reveal style={`--d:${i * 80}ms`}>
+            <p class="text-[0.75rem] font-semibold text-grey">0{i + 1}.</p>
+            <h3 class="mt-3 text-[1.4rem] font-semibold tracking-[-0.04em]">{t.name}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-grey">{t.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-dark py-14 text-white md:py-20">
+    <div class="wrap grid gap-10 md:grid-cols-[27%_1fr] md:gap-0">
+      <div>
+        <p class="label">Prices in {site.city}</p>
+        <p class="sublabel mt-3 !text-white/50">Typical ranges including material and labour. Your exact price comes in a written quote after a free site visit.</p>
+      </div>
+      <div>
+        <h2 class="display">{s.name} cost:</h2>
+        <table class="mt-8 w-full text-left">
+          <caption class="sr-only">{s.name} prices in {site.city}</caption>
+          <tbody class="divide-y divide-white/10 border-y border-white/10">
+            {s.prices.map((p) => <tr><th scope="row" class="py-4 pr-4 text-[1.02rem] font-medium">{p.item}</th><td class="py-4 text-right text-[1.1rem] font-semibold tabular-nums tracking-[-0.02em]">{p.range}</td></tr>)}
+          </tbody>
+        </table>
+        <dl class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div><dt class="label text-white/50">Timeline</dt><dd class="mt-2 text-white/85">{s.timeline}</dd></div>
+          <div><dt class="label text-white/50">Materials we use</dt><dd class="mt-2 text-white/85">{s.materials.join(' · ')}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="wrap">
+      <div class="rule"></div>
+      <div class="grid gap-6 pt-5 md:grid-cols-[27%_1fr] md:gap-0">
+        <p class="label">Recent work</p>
+        <h2 class="display md:pt-6">Projects:</h2>
+      </div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.slice(0, 3).map((p) => (
+          <article>
+            <img src={img(p.img, 800, 900)} alt={`${p.name}, ${p.type} in ${p.place}`} loading="lazy" width="800" height="900" class="aspect-[8/9] w-full rounded-[10px] object-cover" />
+            <h3 class="mt-3 text-[1.3rem] font-semibold tracking-[-0.04em]">{p.name}</h3>
+            <p class="text-[0.8rem] text-grey">{p.type} · {p.place}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="wrap grid gap-10 md:grid-cols-[27%_1fr] md:gap-0">
+      <div><div class="rule mb-5"></div><p class="label">Questions</p></div>
+      <div>
+        <div class="rule mb-2 hidden md:block"></div>
+        <div class="divide-y divide-line border-b border-line">
+          {s.faqs.map((f, i) => (
+            <details class="group" open={i === 0}>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.15rem] font-semibold tracking-[-0.03em] [&::-webkit-details-marker]:hidden">
+                <h3>{f.q}</h3><span class="grid size-9 shrink-0 place-items-center rounded-full transition group-open:rotate-45 group-open:bg-yellow"><Icon name="plus" size={20} /></span>
+              </summary>
+              <p class="pb-6 pr-12 leading-relaxed text-grey">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="wrap grid gap-8 md:grid-cols-[27%_1fr] md:gap-0">
+      <p class="label">{s.name} across {site.city}</p>
+      <div>
+        <ul class="flex flex-wrap gap-2">
+          {areaPages.map((a) => <li><a href={`/interior-designers/${a.slug}`} class="inline-block rounded-full border border-line bg-white px-4 py-2 text-[0.9rem] font-semibold transition hover:border-ink">{a.name}</a></li>)}
+        </ul>
+        <p class="mt-8 label">Other services</p>
+        <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+          {others.map((o) => <li><a href={`/services/${o.slug}`} class="group inline-flex items-center gap-2 text-[1.1rem] font-semibold tracking-[-0.03em]">{o.name}<Icon name="arrow" size={16} class="transition group-hover:translate-x-1" /></a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Quote preselect={s.slug} />
+  <Footer />
+</Base>

@@ -7,27 +7,48 @@ import Icon from '../components/Icon.astro';
 import { site, nav, wa, img } from '../data/site';
 import { P } from '../data/content';
 
-interface Props { title: string; description: string; noindex?: boolean; preloader?: boolean; schema?: Record<string, unknown>[] }
-const { title, description, noindex = false, preloader = true, schema = [] } = Astro.props;
+interface Props { title: string; description: string; noindex?: boolean; preloader?: boolean; image?: string; schema?: Record<string, unknown>[]; quoteHref?: string }
+const { title, description, noindex = false, preloader = true, image, schema = [], quoteHref = '/#quote' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
-const og = img(P.hero, 1200, 630);
+const og = image ?? img(P.hero, 1200, 630);
 
+// One business entity, referenced by @id from every other schema block on the site.
 const business = {
   '@context': 'https://schema.org',
   '@type': ['HomeAndConstructionBusiness', 'GeneralContractor'],
   '@id': `${site.url}/#business`,
   name: site.legal,
+  alternateName: 'Ayush Interiors',
+  description: `Interior designers and home renovation contractors in ${site.city}: modular kitchens, wardrobes, false ceilings, bathrooms and full home interiors.`,
   url: site.url,
+  logo: `${site.url}/icon-512.png`,
   image: og,
   telephone: site.phone,
   email: site.email,
   priceRange: '₹₹',
-  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, postalCode: site.postalCode, addressRegion: site.state, addressCountry: 'IN' },
-  openingHours: 'Mo-Sa 09:00-20:00',
-  areaServed: site.localities.map((l) => ({ '@type': 'Place', name: `${l}, ${site.city}` })),
+  foundingDate: String(site.founded),
+  currenciesAccepted: 'INR',
+  paymentAccepted: 'Cash, UPI, Bank transfer, Credit card',
+  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.locality, addressRegion: site.state, postalCode: site.postalCode, addressCountry: 'IN' },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  hasMap: site.mapUrl,
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: site.hoursSpec.days, opens: site.hoursSpec.opens, closes: site.hoursSpec.closes }],
+  areaServed: [{ '@type': 'City', name: site.city }, ...site.localities.map((l) => ({ '@type': 'Place', name: `${l}, ${site.city}` }))],
+  knowsAbout: ['Interior design', 'Modular kitchens', 'Wardrobes', 'False ceiling', 'Bathroom renovation', 'Home renovation', 'Pooja units', 'Painting', 'Flooring'],
   sameAs: [site.googleUrl, ...Object.values(site.social)],
 };
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.url}/#website`,
+  url: site.url,
+  name: site.name,
+  inLanguage: 'en-IN',
+  publisher: { '@id': `${site.url}/#business` },
+};
 const gaId = import.meta.env.PUBLIC_GA_ID;
+const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
+const bingToken = import.meta.env.PUBLIC_BING_VERIFICATION;
 ---
 <!doctype html>
 <html lang="en-IN">
@@ -37,9 +58,20 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="alternate" hreflang="en-IN" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+    {gscToken && <meta name="google-site-verification" content={gscToken} />}
+    {bingToken && <meta name="msvalidate.01" content={bingToken} />}
+    <!-- Geo targeting -->
+    <meta name="geo.region" content={site.regionCode} />
+    <meta name="geo.placename" content={`${site.locality}, ${site.city}`} />
+    <meta name="geo.position" content={`${site.geo.lat};${site.geo.lng}`} />
+    <meta name="ICBM" content={`${site.geo.lat}, ${site.geo.lng}`} />
     <meta name="theme-color" content="#f1f1f1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href={interWoff} as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <meta property="og:type" content="website" />
@@ -51,7 +83,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>document.documentElement.classList.add('js');</script>
-    {[business, ...schema].map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    {[business, website, ...schema].map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
     {gaId && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
@@ -67,7 +99,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       <div class="flex items-center justify-between">
         <a href="/" class="pointer-events-auto rounded-full bg-white/85 px-4 py-3 text-[0.95rem] shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md" aria-label="Ayush Interior home"><Logo /></a>
         <div class="pointer-events-auto flex items-center gap-2">
-          <a href="#quote" class="pill hidden shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] sm:inline-flex">Get a Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
+          <a href={quoteHref} class="pill hidden shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] sm:inline-flex">Get a Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
           <button type="button" data-menu-open class="grid size-12 place-items-center rounded-full bg-ink text-white shadow-[0_6px_24px_-12px_rgb(0_0_0/0.5)]" aria-label="Open menu"><Icon name="menu" size={22} /></button>
         </div>
       </div>
@@ -107,7 +139,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       <div class="flex items-center gap-1.5 rounded-full bg-ink p-1.5 shadow-[0_10px_30px_-10px_rgb(0_0_0/0.6)]">
         <a href={site.phoneHref} data-track="click_call" class="grid size-12 shrink-0 place-items-center rounded-full bg-white/10 text-white" aria-label="Call"><Icon name="phone" size={20} /></a>
         <a href={wa(`Hi ${site.name}, I'd like a quote for my home.`)} data-track="click_whatsapp" target="_blank" rel="noopener" class="grid size-12 shrink-0 place-items-center rounded-full bg-whatsapp text-white" aria-label="WhatsApp"><Icon name="whatsapp" size={21} /></a>
-        <a href="#quote" class="pill flex-1 !min-h-12">Get a Free Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
+        <a href={quoteHref} class="pill flex-1 !min-h-12">Get a Free Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
       </div>
     </div>
 

@@ -15,10 +15,10 @@ import { services } from '../../data/content';
         <p class="mt-6 text-[0.85rem] text-grey">Prices are starting points. You get an itemised written quote after a free site visit.</p>
       </div>
 
-      <ul class="svc-list border-t border-line" data-cursor="Quote">
+      <ul class="svc-list border-t border-line" data-cursor="View">
         {services.map((s, i) => (
           <li data-reveal style={`--d:${Math.min(i, 5) * 50}ms`}>
-            <a href={`#quote`} data-service={s.name} data-img={img(s.img, 700, 860)} class="svc-row group relative grid grid-cols-[2.2rem_1fr_auto] items-center gap-4 border-b border-line py-5 md:grid-cols-[3rem_1.1fr_1fr_auto] md:py-7">
+            <a href={`/services/${s.slug}`} data-service={s.name} data-img={img(s.img, 700, 860)} class="svc-row group relative grid grid-cols-[2.2rem_1fr_auto] items-center gap-4 border-b border-line py-5 md:grid-cols-[3rem_1.1fr_1fr_auto] md:py-7">
               <span class="text-[0.75rem] font-semibold text-grey">{String(i + 1).padStart(2, '0')}.</span>
               <span class="flex items-center gap-4">
                 <img src={img(s.img, 120, 120, 55)} alt="" loading="lazy" width="56" height="56" class="size-12 rounded-md object-cover md:hidden" />
@@ -49,12 +49,6 @@ import { services } from '../../data/content';
 </style>
 
 <script>
-  // Click a service -> preselect it in the quote form
-  document.querySelectorAll<HTMLAnchorElement>('.svc-row').forEach((a) => a.addEventListener('click', () => {
-    (window as any).__quoteService = a.dataset.service;
-    window.dispatchEvent(new CustomEvent('quote:service', { detail: a.dataset.service }));
-  }));
-
   const float = document.getElementById('svc-float');
   const list = document.querySelector('.svc-list');
   if (float && list && matchMedia('(pointer: fine)').matches) {

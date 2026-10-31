@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { submitLead, track, isValidPhone } from '../lib/lead';
 
-type Props = { services: string[]; localities: string[] };
+type Props = { services: string[]; localities: string[]; initial?: string[]; area?: string };
 
 const STATUS = ['New possession', 'Renovating my current home', 'Rental / investment property'];
 const PROPERTY = ['Apartment', 'Villa / Bungalow', 'Independent house', 'Office / Shop'];
@@ -42,9 +42,9 @@ const Group = ({ title, error, children }: { title: string; error?: string; chil
 
 const input = 'w-full border-0 border-b-2 border-line bg-transparent px-0 py-3 text-[1.15rem] font-medium tracking-[-0.02em] outline-none transition placeholder:text-grey/60 focus:border-ink';
 
-export default function QuoteForm({ services, localities }: Props) {
+export default function QuoteForm({ services, localities, initial = [], area = '' }: Props) {
   const [step, setStep] = useState(0);
-  const [d, setD] = useState({ services: [] as string[], status: '', property: '', size: '', budget: '', when: '', name: '', phone: '', locality: '', email: '', details: '', consent: true });
+  const [d, setD] = useState({ services: initial, status: '', property: '', size: '', budget: '', when: '', name: '', phone: '', locality: area, email: '', details: '', consent: true });
   const [err, setErr] = useState<Record<string, string>>({});
   const [sending, setSending] = useState(false);
   const started = useRef(false);
@@ -143,7 +143,7 @@ export default function QuoteForm({ services, localities }: Props) {
               {err.phone && <span class="mt-1 block text-[0.85rem] text-[#c2410c]" role="alert">{err.phone}</span>}
             </label>
             <label class="block"><span class="text-[0.75rem] font-bold uppercase">Area / locality</span>
-              <input class={input} list="q-localities" value={d.locality} placeholder="e.g. Baner" onInput={(e) => set('locality', (e.target as HTMLInputElement).value)} />
+              <input class={input} list="q-localities" value={d.locality} placeholder="e.g. Kharghar" onInput={(e) => set('locality', (e.target as HTMLInputElement).value)} />
               <datalist id="q-localities">{localities.map((l) => <option value={l} />)}</datalist>
               {err.locality && <span class="mt-1 block text-[0.85rem] text-[#c2410c]" role="alert">{err.locality}</span>}
             </label>

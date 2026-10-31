@@ -14,40 +14,40 @@ export const stats = [
 ];
 
 export const projects = [
-  { name: 'The Jaali House', place: 'Baner, Pune', year: 2025, type: '3BHK · Full interior', img: 'photo-1745301558339-44eb3217d5da' },
-  { name: 'Sage & Oak Kitchen', place: 'Kothrud, Pune', year: 2025, type: 'Modular kitchen', img: 'photo-1683629357935-f3f4777ddf41' },
-  { name: 'Marble Calm', place: 'Wakad, Pune', year: 2024, type: 'Bathroom renovation', img: 'photo-1576698483491-8c43f0862543' },
-  { name: 'Walnut Suite', place: 'Aundh, Pune', year: 2024, type: 'Master bedroom', img: 'photo-1633944095397-878622ebc01c' },
-  { name: 'Indigo Living', place: 'Viman Nagar, Pune', year: 2023, type: '2BHK · Living & dining', img: 'photo-1682662046426-f7589013d25e' },
-  { name: 'Dark Oak Dining', place: 'Koregaon Park, Pune', year: 2025, type: 'Villa · Dining', img: 'photo-1656403002413-2ac6137237d6' },
-  { name: 'Quiet Grey', place: 'Balewadi, Pune', year: 2024, type: '3BHK · Living room', img: 'photo-1724582586529-62622e50c0b3' },
+  { name: 'The Jaali House', place: 'Kharghar, Navi Mumbai', year: 2025, type: '3BHK · Full interior', img: 'photo-1745301558339-44eb3217d5da' },
+  { name: 'Sage & Oak Kitchen', place: 'Vashi, Navi Mumbai', year: 2025, type: 'Modular kitchen', img: 'photo-1683629357935-f3f4777ddf41' },
+  { name: 'Marble Calm', place: 'Nerul, Navi Mumbai', year: 2024, type: 'Bathroom renovation', img: 'photo-1576698483491-8c43f0862543' },
+  { name: 'Walnut Suite', place: 'Seawoods, Navi Mumbai', year: 2024, type: 'Master bedroom', img: 'photo-1633944095397-878622ebc01c' },
+  { name: 'Indigo Living', place: 'Airoli, Navi Mumbai', year: 2023, type: '2BHK · Living & dining', img: 'photo-1682662046426-f7589013d25e' },
+  { name: 'Dark Oak Dining', place: 'Palm Beach Road, Navi Mumbai', year: 2025, type: 'Row house · Dining', img: 'photo-1656403002413-2ac6137237d6' },
+  { name: 'Quiet Grey', place: 'Ulwe, Navi Mumbai', year: 2024, type: '3BHK · Living room', img: 'photo-1724582586529-62622e50c0b3' },
 ];
 
 export const services = [
-  { slug: 'full-home', name: 'Full Home Interiors', desc: 'Design to handover for 1–4 BHK homes. One team, one quote, one timeline.', from: '₹4.5L', img: 'photo-1745301558339-44eb3217d5da' },
-  { slug: 'kitchen', name: 'Modular Kitchens', desc: 'L, U and parallel kitchens in BWP ply with soft-close hardware.', from: '₹1.6L', img: 'photo-1683629357935-f3f4777ddf41' },
-  { slug: 'wardrobe', name: 'Wardrobes & Storage', desc: 'Sliding, hinged and walk-in wardrobes, TV units and lofts.', from: '₹1,450/sq ft', img: 'photo-1722349674028-a148f4364e43' },
-  { slug: 'bathroom', name: 'Bathroom Renovation', desc: 'Waterproofing, tiles, concealed plumbing and fittings, leak-tested.', from: '₹85,000', img: 'photo-1564540583246-934409427776' },
-  { slug: 'ceiling', name: 'False Ceiling & Lighting', desc: 'Gypsum and POP ceilings with cove, profile and track lighting.', from: '₹95/sq ft', img: 'photo-1746439307632-cba0f8effbed' },
+  { slug: 'home-interiors', name: 'Full Home Interiors', desc: 'Design to handover for 1–4 BHK homes. One team, one quote, one timeline.', from: '₹4.5L', img: 'photo-1745301558339-44eb3217d5da' },
+  { slug: 'modular-kitchen', name: 'Modular Kitchens', desc: 'L, U and parallel kitchens in BWP ply with soft-close hardware.', from: '₹1.6L', img: 'photo-1683629357935-f3f4777ddf41' },
+  { slug: 'wardrobes', name: 'Wardrobes & Storage', desc: 'Sliding, hinged and walk-in wardrobes, TV units and lofts.', from: '₹1,450/sq ft', img: 'photo-1722349674028-a148f4364e43' },
+  { slug: 'bathroom-renovation', name: 'Bathroom Renovation', desc: 'Waterproofing, tiles, concealed plumbing and fittings, leak-tested.', from: '₹85,000', img: 'photo-1564540583246-934409427776' },
+  { slug: 'false-ceiling', name: 'False Ceiling & Lighting', desc: 'Gypsum and POP ceilings with cove, profile and track lighting.', from: '₹95/sq ft', img: 'photo-1746439307632-cba0f8effbed' },
   { slug: 'painting', name: 'Painting & Textures', desc: 'Premium paints, textures, wallpaper and accent walls, furniture covered.', from: '₹12/sq ft', img: 'photo-1637412816281-f80ec9948fea' },
-  { slug: 'flooring', name: 'Flooring & Tiling', desc: 'Marble, vitrified, wooden and SPC flooring with clean finishing.', from: '₹110/sq ft', img: 'photo-1706629503586-2731f65587ae' },
-  { slug: 'pooja', name: 'Pooja Units & Jaali Work', desc: 'Custom mandirs, CNC jaali partitions and backlit panels.', from: '₹35,000', img: 'photo-1745301558339-44eb3217d5da' },
+  { slug: 'flooring-tiling', name: 'Flooring & Tiling', desc: 'Marble, vitrified, wooden and SPC flooring with clean finishing.', from: '₹110/sq ft', img: 'photo-1706629503586-2731f65587ae' },
+  { slug: 'pooja-unit', name: 'Pooja Units & Jaali Work', desc: 'Custom mandirs, CNC jaali partitions and backlit panels.', from: '₹35,000', img: 'photo-1745301558339-44eb3217d5da' },
   { slug: 'electrical-plumbing', name: 'Electrical & Plumbing', desc: 'Rewiring, switchboards, lights, leaks and fittings, done safely.', from: '₹199', img: 'photo-1711107796112-e5b4fe9aa075' },
 ];
 
 export const transformations = [
   {
-    id: 'living', tab: 'Living Room', title: 'A 40-year-old room, reborn', place: 'Aundh, Pune', days: 38, budget: '₹6.2L',
+    id: 'living', tab: 'Living Room', title: 'A 40-year-old room, reborn', place: 'Seawoods, Navi Mumbai', days: 38, budget: '₹6.2L',
     before: 'photo-1784294460266-ff0690c51861', after: 'photo-1600210491892-03d54c0aaf87',
     scope: ['Wall plaster & POP repair', 'Wooden ceiling beams', 'Arched windows', 'Lighting plan', 'Custom furniture'],
   },
   {
-    id: 'kitchen', tab: 'Kitchen', title: 'Cramped kitchen to modular L', place: 'Kothrud, Pune', days: 21, budget: '₹2.4L',
+    id: 'kitchen', tab: 'Kitchen', title: 'Cramped kitchen to modular L', place: 'Vashi, Navi Mumbai', days: 21, budget: '₹2.4L',
     before: 'photo-1705538851801-4de1c763df2a', after: 'photo-1722605090433-41d1183a792d',
     scope: ['L-shaped modular units', 'Quartz counter', 'Chimney & hob points', 'Under-cabinet lights', 'Dado tiles'],
   },
   {
-    id: 'bathroom', tab: 'Bathroom', title: 'From bare walls to spa calm', place: 'Wakad, Pune', days: 14, budget: '₹1.7L',
+    id: 'bathroom', tab: 'Bathroom', title: 'From bare walls to spa calm', place: 'Nerul, Navi Mumbai', days: 14, budget: '₹1.7L',
     before: 'photo-1611433162346-aec991ef7484', after: 'photo-1662624914003-9bb2095ca7a0',
     scope: ['Full waterproofing + 48h test', 'Concealed plumbing', 'Large-format tiles', 'Freestanding tub', 'Heated towel rail'],
   },
@@ -67,15 +67,15 @@ export const offers = ['Free site visit & measurement', '10% off your first proj
 
 export const testimonials = [
   {
-    name: 'Priya & Rohan Kulkarni', home: '3BHK · Baner', quote: 'From the first 3D render to the last cushion, they turned our empty flat into a home we never want to leave.',
+    name: 'Priya & Rohan Kulkarni', home: '3BHK · Kharghar', quote: 'From the first 3D render to the last cushion, they turned our empty flat into a home we never want to leave.',
     story: 'Priya and Rohan wanted warm, Indian-modern interiors with a proper pooja space. We designed a CNC jaali mandir as the centrepiece and finished the home in 52 days.',
   },
   {
-    name: 'Anand Deshpande', home: 'Villa · Koregaon Park', quote: 'The quote was exactly what we paid. Not a rupee more. That alone is rare in this industry.',
-    story: 'A dated villa dining and living area, redone with dark oak panelling, a statement chandelier and concealed storage, delivered within the agreed budget.',
+    name: 'Anand Deshpande', home: 'Row house · Palm Beach Road', quote: 'The quote was exactly what we paid. Not a rupee more. That alone is rare in this industry.',
+    story: 'A dated row-house dining and living area, redone with dark oak panelling, a statement chandelier and concealed storage, delivered within the agreed budget.',
   },
   {
-    name: 'Sneha Joshi', home: '2BHK · Wakad', quote: 'We were in Dubai the whole time. Daily photo updates on WhatsApp meant we never had to fly down.',
+    name: 'Sneha Joshi', home: '2BHK · Nerul', quote: 'We were in Dubai the whole time. Daily photo updates on WhatsApp meant we never had to fly down.',
     story: 'An NRI client renovating a rental flat for move-in. Full repaint, modular kitchen, two bathrooms and wardrobes, fully managed remotely.',
   },
 ];
@@ -90,7 +90,7 @@ export const advantages = {
 };
 
 export const faqs = [
-  { q: 'How much does a full home interior cost in Pune?', a: 'A 2BHK typically ranges from ₹4.5L to ₹9L depending on scope, materials and finishes. You get an itemised, written quote after a free site visit, so you know the exact cost before anything starts.' },
+  { q: 'How much does a full home interior cost in Navi Mumbai?', a: 'A 2BHK typically ranges from ₹4.5L to ₹9L depending on scope, materials and finishes. You get an itemised, written quote after a free site visit, so you know the exact cost before anything starts.' },
   { q: 'How long does a project take?', a: 'Modular kitchens take 15–25 days, bathrooms 10–14 days and full 2–3BHK interiors 45–60 days from design sign-off. You get a written timeline with your quote.' },
   { q: 'Will I see the design before work starts?', a: 'Yes. We share layouts, a moodboard and photo-real 3D views. Work begins only after you approve the design and the quote.' },
   { q: 'Do you take a big advance?', a: 'No. A 10% booking amount, then payments in stages as work is completed and checked by you. Every payment comes with a GST invoice.' },

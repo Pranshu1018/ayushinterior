@@ -2,6 +2,7 @@
 import Logo from '../Logo.astro';
 import { site, nav, img } from '../../data/site';
 import { P } from '../../data/content';
+import { servicePages, areaPages } from '../../data/pages';
 ---
 <footer class="relative isolate overflow-hidden bg-dark pb-28 pt-14 text-white md:pb-10 md:pt-20">
   <img src={img(P.footer, 1800, 1000, 60)} alt="" loading="lazy" width="1800" height="1000" class="absolute inset-0 -z-10 size-full object-cover opacity-[0.22]" />
@@ -17,11 +18,27 @@ import { P } from '../../data/content';
       <div class="grid grid-cols-2 gap-8 md:pl-[4%]" data-reveal style="--d:100ms">
         <nav aria-label="Footer">
           <ul class="space-y-1.5">
-            {[{ label: 'Home', href: '#top' }, ...nav].map((n) => <li><a href={n.href} class="text-[clamp(1.25rem,1.7vw,1.6rem)] font-semibold tracking-[-0.035em] transition hover:text-beige">{n.label}</a></li>)}
+            {[{ label: 'Home', href: '/' }, ...nav].map((n) => <li><a href={n.href} class="text-[clamp(1.25rem,1.7vw,1.6rem)] font-semibold tracking-[-0.035em] transition hover:text-beige">{n.label}</a></li>)}
           </ul>
         </nav>
         <ul class="space-y-2 text-right text-[0.8rem] text-white/60">
           {Object.entries(site.social).map(([k, v]) => <li><a href={v} target="_blank" rel="noopener" class="hover:text-white">{k}</a></li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 grid gap-10 border-t border-white/10 pt-10 sm:grid-cols-2 md:grid-cols-[27%_1fr_1fr]">
+      <p class="label text-white/50">Explore</p>
+      <div>
+        <p class="label text-white">Services</p>
+        <ul class="mt-4 space-y-2 text-[0.9rem] text-white/65">
+          {servicePages.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name} in {site.city}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="label text-white">Interior designers in</p>
+        <ul class="mt-4 grid grid-cols-2 gap-2 text-[0.9rem] text-white/65">
+          {areaPages.map((a) => <li><a href={`/interior-designers/${a.slug}`} class="hover:text-white">{a.name}</a></li>)}
         </ul>
       </div>
     </div>

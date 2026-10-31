@@ -1,0 +1,25 @@
+---
+// Header for inner pages (services, areas): light bar in the Housemood style.
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+const links = [
+  { label: 'Services', href: '/services' },
+  { label: 'Areas', href: '/interior-designers' },
+  { label: 'Projects', href: '/#projects' },
+  { label: 'FAQ', href: '/#faq' },
+];
+---
+<header class="relative z-10 border-b border-line">
+  <div class="wrap flex items-center justify-between gap-6 py-5">
+    <a href="/" class="text-[1.05rem]" aria-label="Ayush Interior home"><Logo /></a>
+    <nav class="hidden items-center gap-8 text-[0.9rem] font-semibold lg:flex" aria-label="Main">
+      {links.map((l) => <a href={l.href} class="transition hover:text-grey">{l.label}</a>)}
+      <a href={site.phoneHref} data-track="click_call" class="text-grey transition hover:text-ink">{site.phone}</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="#quote" class="pill hidden !min-h-11 shadow-[0_6px_24px_-14px_rgb(0_0_0/0.35)] sm:inline-flex">Get a Quote <span class="dot !size-8"><Icon name="arrow" size={16} /></span></a>
+      <button type="button" data-menu-open class="grid size-11 place-items-center rounded-full bg-ink text-white" aria-label="Open menu"><Icon name="menu" size={22} /></button>
+    </div>
+  </div>
+</header>

@@ -4,6 +4,16 @@ import SectionHead from '../SectionHead.astro';
 import QuoteForm from '../../islands/QuoteForm';
 import { site, wa } from '../../data/site';
 import { quoteServices } from '../../data/content';
+
+interface Props { preselect?: string; area?: string }
+const { preselect, area } = Astro.props;
+// Service-page slug -> quote form option
+const bySlug: Record<string, string> = {
+  'home-interiors': 'Full Home Interiors', 'modular-kitchen': 'Modular Kitchen', wardrobes: 'Wardrobes & Storage',
+  'bathroom-renovation': 'Bathroom Renovation', 'false-ceiling': 'False Ceiling & Lighting', painting: 'Painting & Textures',
+  'flooring-tiling': 'Flooring & Tiling', 'pooja-unit': 'Pooja Unit / Jaali', 'electrical-plumbing': 'Electrical & Plumbing',
+};
+const initial = preselect && bySlug[preselect] ? [bySlug[preselect]] : [];
 const next = [
   ['We call you back', `Within 2 working hours (${site.hours}).`],
   ['Free site visit', 'A designer measures your home and understands what you want.'],
@@ -28,7 +38,7 @@ const next = [
         </div>
       </div>
       <div data-reveal style="--d:100ms">
-        <QuoteForm client:idle services={quoteServices} localities={[...site.localities]} />
+        <QuoteForm client:idle services={quoteServices} localities={[...site.localities]} initial={initial} area={area} />
       </div>
     </div>
   </div>

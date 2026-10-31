@@ -70,6 +70,10 @@ import { site } from '../data/site';
     var root = document.documentElement;
     var pl = document.getElementById('preloader');
     if (!pl || !root.classList.contains('js')) return;
+    // Full intro on the first visit of a session only; repeat page views go straight in.
+    var seen = false;
+    try { seen = sessionStorage.getItem('ai_pl') === '1'; sessionStorage.setItem('ai_pl', '1'); } catch (e) {}
+    if (seen) { pl.remove(); root.classList.add('intro'); return; }
     root.classList.add('pl-lock');
     var t0 = performance.now();
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

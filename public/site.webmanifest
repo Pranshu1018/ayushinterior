@@ -1,0 +1,13 @@
+{
+  "name": "Ayush Interior",
+  "short_name": "Ayush Interior",
+  "description": "Interior designers and home renovation in Navi Mumbai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1f1f1",
+  "theme_color": "#0d0d0d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
