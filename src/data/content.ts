@@ -9,7 +9,7 @@ export const P = {
 export const stats = [
   { value: 2014, suffix: '', label: 'Year of establishment', note: '12 years crafting homes', thumbs: ['photo-1745301558339-44eb3217d5da', 'photo-1683629357935-f3f4777ddf41', 'photo-1633944095397-878622ebc01c'] },
   { value: 650, suffix: '+', label: 'Projects delivered', note: 'Homes, offices & showrooms', thumbs: ['photo-1576698483491-8c43f0862543', 'photo-1722349674028-a148f4364e43', 'photo-1656403002413-2ac6137237d6'] },
-  { value: 98, suffix: '%', label: 'Clients refer us', note: `Rated 4.9 on Google`, thumbs: ['photo-1691036561573-4b76998b60de', 'photo-1724582586529-62622e50c0b3', 'photo-1682662046426-f7589013d25e'] },
+  { value: 98, suffix: '%', label: 'Clients refer us', note: 'Most new work comes from referrals', thumbs: ['photo-1691036561573-4b76998b60de', 'photo-1724582586529-62622e50c0b3', 'photo-1682662046426-f7589013d25e'] },
   { value: 14, suffix: '', label: 'Projects in progress', note: 'What we are building right now', thumbs: ['photo-1599420187429-774dbfc6ba5d', 'photo-1746439307632-cba0f8effbed', 'photo-1706629503586-2731f65587ae'] },
 ];
 
@@ -32,6 +32,7 @@ export const services = [
   { slug: 'painting', name: 'Painting & Textures', desc: 'Premium paints, textures, wallpaper and accent walls, furniture covered.', from: '₹12/sq ft', img: 'photo-1637412816281-f80ec9948fea' },
   { slug: 'flooring-tiling', name: 'Flooring & Tiling', desc: 'Marble, vitrified, wooden and SPC flooring with clean finishing.', from: '₹110/sq ft', img: 'photo-1706629503586-2731f65587ae' },
   { slug: 'pooja-unit', name: 'Pooja Units & Jaali Work', desc: 'Custom mandirs, CNC jaali partitions and backlit panels.', from: '₹35,000', img: 'photo-1745301558339-44eb3217d5da' },
+  { slug: 'society-maintenance', name: 'Society Maintenance & Repairs', desc: 'Annual maintenance, waterproofing, painting and repairs for housing societies.', from: 'On quote', img: 'photo-1581783898377-1c85bf937427' },
   { slug: 'electrical-plumbing', name: 'Electrical & Plumbing', desc: 'Rewiring, switchboards, lights, leaks and fittings, done safely.', from: '₹199', img: 'photo-1711107796112-e5b4fe9aa075' },
 ];
 
@@ -100,5 +101,5 @@ export const faqs = [
 
 export const quoteServices = [
   'Full Home Interiors', 'Modular Kitchen', 'Wardrobes & Storage', 'Bathroom Renovation', 'False Ceiling & Lighting',
-  'Painting & Textures', 'Flooring & Tiling', 'Pooja Unit / Jaali', 'Electrical & Plumbing', 'Something else',
+  'Painting & Textures', 'Flooring & Tiling', 'Pooja Unit / Jaali', 'Electrical & Plumbing', 'Society Maintenance', 'Something else',
 ];

@@ -12,7 +12,7 @@ const tags = ['Interior Design', 'Home Renovation', 'Modular Kitchens', 'Turnkey
       src={img(P.hero, 1800, 1100)}
       srcset={srcset(P.hero, [700, 1100, 1600, 2200], 0.62)}
       sizes="100vw"
-      alt="Warm living room by Ayush Interior with curved sofa, fluted wood panelling and soft lighting"
+      alt="Warm living room by Ayush Interiors with curved sofa, fluted wood panelling and soft lighting"
       width="1800" height="1100" fetchpriority="high"
       class="size-full object-cover"
     />
@@ -46,10 +46,14 @@ const tags = ['Interior Design', 'Home Renovation', 'Modular Kitchens', 'Turnkey
   <!-- Middle clusters -->
   <div class="absolute inset-x-0 top-[24%] z-10 px-5 md:top-[22%] md:px-0">
     <div class="md:absolute md:left-[27%] md:pl-0">
+      {site.reviews > 0 ? (
       <a href={site.googleUrl} target="_blank" rel="noopener" data-intro style="--i:5" class="mb-8 hidden items-center gap-2 text-[0.7rem] font-semibold leading-tight md:inline-flex">
         <span class="grid size-9 place-items-center rounded-full bg-white text-ink"><span class="text-[0.95rem] font-bold">G</span></span>
         <span><span class="flex gap-0.5 text-yellow">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={11} />)}</span>Google rated {site.rating} · {site.reviews} reviews</span>
       </a>
+      ) : (
+      <a href={site.mapUrl} target="_blank" rel="noopener" data-intro style="--i:5" class="mb-8 hidden items-center gap-2 text-[0.75rem] font-semibold leading-tight md:inline-flex"><span class="grid size-9 place-items-center rounded-full bg-white text-ink"><Icon name="pin" size={16} /></span><span>Kopar Khairane, Navi Mumbai<br /><span class="font-medium text-white/75">Find us on Google Maps</span></span></a>
+      )}
       <p data-intro style="--i:6" class="text-[1.15rem] font-medium leading-tight tracking-[-0.03em] md:text-[1.35rem]">Interiors &amp; Renovation<br /><span class="text-beige">Since {site.founded}</span></p>
     </div>
     <ul data-intro style="--i:7" class="absolute left-[75%] top-[35%] hidden pl-4 text-[0.85rem] font-semibold leading-[1.5] md:block">
@@ -60,7 +64,7 @@ const tags = ['Interior Design', 'Home Renovation', 'Modular Kitchens', 'Turnkey
   <!-- Headline -->
   <div class="absolute inset-x-0 bottom-[9%] z-10 px-5 md:bottom-[8%] md:px-8">
     <h1 class="giant !text-[clamp(2.4rem,7.6vw,8.6rem)]">
-      <span class="sr-only">Ayush Interior: interior design and home renovation in {site.city}. </span>
+      <span class="sr-only">Ayush Interiors: interior design and home renovation in {site.city}. </span>
       <span class="mask hero-line" style="--i:0"><span>Turning Houses</span></span>
       <span class="mask hero-line md:pl-[calc(27%-2rem)]" style="--i:1"><span>into <span class="hero-accent">Dream Homes</span></span></span>
     </h1>

@@ -23,7 +23,7 @@ export const servicePages: ServicePage[] = [
     slug: 'home-interiors',
     name: 'Full Home Interiors',
     keyword: 'Full Home Interiors in Navi Mumbai',
-    title: 'Interior Designers in Navi Mumbai | Full Home Interiors from ₹4.5L | Ayush Interior',
+    title: 'Interior Designers in Navi Mumbai | Full Home Interiors from ₹4.5L | Ayush Interiors',
     description: 'Complete 1–4 BHK home interiors in Navi Mumbai: design, 3D views, modular kitchen, wardrobes, ceilings and painting by one team. Free site visit and written quote.',
     h1: 'Full home interiors in Navi Mumbai, designed and built by one team',
     intro: [
@@ -55,7 +55,7 @@ export const servicePages: ServicePage[] = [
     slug: 'modular-kitchen',
     name: 'Modular Kitchens',
     keyword: 'Modular Kitchen in Navi Mumbai',
-    title: 'Modular Kitchen in Navi Mumbai | L, U & Parallel from ₹1.6L | Ayush Interior',
+    title: 'Modular Kitchen in Navi Mumbai | L, U & Parallel from ₹1.6L | Ayush Interiors',
     description: 'Custom modular kitchens in Navi Mumbai in BWP plywood with soft-close hardware, quartz or granite tops and chimney points. Free design and site visit.',
     h1: 'Modular kitchens in Navi Mumbai, built for Indian cooking',
     intro: [
@@ -87,7 +87,7 @@ export const servicePages: ServicePage[] = [
     slug: 'wardrobes',
     name: 'Wardrobes & Storage',
     keyword: 'Wardrobe Designers in Navi Mumbai',
-    title: 'Custom Wardrobes in Navi Mumbai | Sliding & Hinged from ₹1,450/sq ft | Ayush Interior',
+    title: 'Custom Wardrobes in Navi Mumbai | Sliding & Hinged from ₹1,450/sq ft | Ayush Interiors',
     description: 'Made-to-measure sliding, hinged and walk-in wardrobes, TV units and lofts in Navi Mumbai. BWP ply, soft-close hardware and a 10-year woodwork warranty.',
     h1: 'Custom wardrobes and storage that fit every inch of your room',
     intro: [
@@ -118,7 +118,7 @@ export const servicePages: ServicePage[] = [
     slug: 'bathroom-renovation',
     name: 'Bathroom Renovation',
     keyword: 'Bathroom Renovation in Navi Mumbai',
-    title: 'Bathroom Renovation in Navi Mumbai | Leak-Proof from ₹85,000 | Ayush Interior',
+    title: 'Bathroom Renovation in Navi Mumbai | Leak-Proof from ₹85,000 | Ayush Interiors',
     description: 'Complete bathroom renovation in Navi Mumbai: waterproofing with 48-hour leak test, concealed plumbing, tiles, fittings and vanity. Written warranty.',
     h1: 'Bathroom renovation in Navi Mumbai, waterproofed and leak-tested',
     intro: [
@@ -149,7 +149,7 @@ export const servicePages: ServicePage[] = [
     slug: 'false-ceiling',
     name: 'False Ceiling & Lighting',
     keyword: 'False Ceiling in Navi Mumbai',
-    title: 'False Ceiling in Navi Mumbai | Gypsum & POP from ₹95/sq ft | Ayush Interior',
+    title: 'False Ceiling in Navi Mumbai | Gypsum & POP from ₹95/sq ft | Ayush Interiors',
     description: 'Gypsum and POP false ceilings with cove, profile and track lighting in Navi Mumbai. Designs for living rooms, bedrooms and offices. Free site visit.',
     h1: 'False ceilings and lighting that change how a room feels',
     intro: [
@@ -179,7 +179,7 @@ export const servicePages: ServicePage[] = [
     slug: 'painting',
     name: 'Painting & Textures',
     keyword: 'Home Painting in Navi Mumbai',
-    title: 'Home Painting in Navi Mumbai | Interior, Textures & Damp Treatment | Ayush Interior',
+    title: 'Home Painting in Navi Mumbai | Interior, Textures & Damp Treatment | Ayush Interiors',
     description: 'Interior painting, texture walls, wallpaper and damp treatment in Navi Mumbai. Furniture covered, floors protected, cracks repaired first. From ₹12/sq ft.',
     h1: 'Home painting in Navi Mumbai, with furniture covered and floors protected',
     intro: [
@@ -210,7 +210,7 @@ export const servicePages: ServicePage[] = [
     slug: 'flooring-tiling',
     name: 'Flooring & Tiling',
     keyword: 'Flooring Contractors in Navi Mumbai',
-    title: 'Flooring & Tiling in Navi Mumbai | Marble, Vitrified, Wooden | Ayush Interior',
+    title: 'Flooring & Tiling in Navi Mumbai | Marble, Vitrified, Wooden | Ayush Interiors',
     description: 'Vitrified, marble, Italian, wooden and SPC flooring installation in Navi Mumbai with clean levelling and finishing. Old floor removal available.',
     h1: 'Flooring and tiling in Navi Mumbai, levelled and finished cleanly',
     intro: [
@@ -240,7 +240,7 @@ export const servicePages: ServicePage[] = [
     slug: 'pooja-unit',
     name: 'Pooja Units & Jaali Work',
     keyword: 'Pooja Unit Design in Navi Mumbai',
-    title: 'Pooja Unit Design in Navi Mumbai | Mandir & CNC Jaali | Ayush Interior',
+    title: 'Pooja Unit Design in Navi Mumbai | Mandir & CNC Jaali | Ayush Interiors',
     description: 'Custom pooja units, wall-mounted mandirs, CNC jaali partitions and backlit panels in Navi Mumbai, designed to Vastu where you want it.',
     h1: 'Pooja units and jaali work, designed for your home and your traditions',
     intro: [
@@ -270,7 +270,7 @@ export const servicePages: ServicePage[] = [
     slug: 'electrical-plumbing',
     name: 'Electrical & Plumbing',
     keyword: 'Electrician & Plumber in Navi Mumbai',
-    title: 'Electrical & Plumbing Work in Navi Mumbai | Rewiring & Leak Repair | Ayush Interior',
+    title: 'Electrical & Plumbing Work in Navi Mumbai | Rewiring & Leak Repair | Ayush Interiors',
     description: 'Home rewiring, switchboards, lighting, leak repairs and concealed plumbing in Navi Mumbai by trained in-house electricians and plumbers. From ₹199.',
     h1: 'Electrical and plumbing work in Navi Mumbai, done safely and neatly',
     intro: [
@@ -296,6 +296,36 @@ export const servicePages: ServicePage[] = [
     ],
     img: 'photo-1711107796112-e5b4fe9aa075',
   },
+  {
+    slug: 'society-maintenance',
+    name: 'Society Maintenance & Repairs',
+    keyword: 'Society Maintenance Contractor in Navi Mumbai',
+    description: 'Building repairs, terrace and wall waterproofing, painting, plumbing and electrical maintenance for housing societies in Navi Mumbai. Annual contracts available.',
+    h1: 'Society maintenance and repairs for Navi Mumbai housing societies',
+    intro: [
+      'Many Navi Mumbai societies are now 20–35 years old, and every monsoon brings seepage, cracked plaster, leaking terraces and ageing pipelines. We help managing committees plan and carry out repairs properly, with clear quotes and documentation for the general body.',
+      'From one-time terrace waterproofing to an annual maintenance contract covering common-area plumbing, electricals and painting, one accountable team handles the work and reports to the committee.',
+    ],
+    includes: ['Site inspection and written repair report', 'Terrace and external wall waterproofing', 'Building painting and crack repair', 'Common-area plumbing and drainage', 'Lobby, staircase and lift-area electricals', 'Annual maintenance contracts (AMC)', 'Itemised quotes for committee approval'],
+    types: [
+      { name: 'Monsoon readiness', body: 'Pre-monsoon inspection, terrace waterproofing and drainage cleaning before June.' },
+      { name: 'Painting & facade repair', body: 'Crack filling, plaster repair and exterior painting with weather-proof coatings.' },
+      { name: 'Annual maintenance', body: 'Scheduled visits for plumbing, electricals and small repairs at fixed labour rates.' },
+    ],
+    prices: [
+      { item: 'Terrace waterproofing', range: '₹45 – ₹90 / sq ft' },
+      { item: 'Exterior building painting', range: '₹18 – ₹35 / sq ft' },
+      { item: 'Annual maintenance contract', range: 'On quote' },
+    ],
+    timeline: 'Inspection within 48 hours; most repair works scheduled outside the monsoon.',
+    materials: ['Dr. Fixit / Fosroc waterproofing', 'Asian Paints Apex / Berger WeatherCoat', 'Astral CPVC & SWR pipes'],
+    faqs: [
+      { q: 'Do you give quotes the committee can present at the general body meeting?', a: 'Yes. You get a written inspection report with photos and an itemised quote, so members can compare and approve.' },
+      { q: 'When should a society do terrace waterproofing?', a: 'Between November and May, so the treatment cures fully before the monsoon. We inspect and quote in advance.' },
+      { q: 'Do you offer annual maintenance contracts?', a: 'Yes. AMCs cover scheduled plumbing, electrical and small civil repairs in common areas at fixed labour rates.' },
+    ],
+    img: 'photo-1581783898377-1c85bf937427',
+  },
 ];
 
 export type AreaPage = {
@@ -308,6 +338,12 @@ export type AreaPage = {
 };
 
 export const areaPages: AreaPage[] = [
+  { slug: 'kopar-khairane', name: 'Kopar Khairane', pin: '400709', nearby: ['Ghansoli', 'Vashi', 'Turbhe', 'Mahape'],
+    about: 'Kopar Khairane is our home base: our office is in Sector 1, so a designer can usually visit the same or next day. The node has a large stock of CIDCO-era and older society flats alongside newer buildings, and most of our work here is complete renovations, modular kitchens, bathroom waterproofing and society repairs.',
+    focus: ['home-interiors', 'modular-kitchen', 'bathroom-renovation', 'society-maintenance'] },
+  { slug: 'ghansoli', name: 'Ghansoli', pin: '400701', nearby: ['Kopar Khairane', 'Airoli', 'Rabale', 'Mahape'],
+    about: 'Ghansoli sits just north of Kopar Khairane along the Thane–Belapur Road, with a mix of older settlements and newer residential complexes. Homeowners here usually ask for space-saving wardrobes, modular kitchens and full makeovers of newly bought flats.',
+    focus: ['home-interiors', 'wardrobes', 'modular-kitchen', 'painting'] },
   { slug: 'vashi', name: 'Vashi', pin: '400703', nearby: ['Sanpada', 'Juinagar', 'Turbhe', 'Kopar Khairane'],
     about: 'Vashi is one of Navi Mumbai’s oldest and most established nodes, with many CIDCO-era buildings alongside newer towers. Much of our work here is renovating 15–30 year old flats: replacing old flooring, rewiring, fixing bathroom seepage and building modern kitchens and wardrobes.',
     focus: ['bathroom-renovation', 'modular-kitchen', 'flooring-tiling', 'electrical-plumbing'] },

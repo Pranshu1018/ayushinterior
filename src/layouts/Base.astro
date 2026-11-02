@@ -18,7 +18,7 @@ const business = {
   '@type': ['HomeAndConstructionBusiness', 'GeneralContractor'],
   '@id': `${site.url}/#business`,
   name: site.legal,
-  alternateName: 'Ayush Interiors',
+  alternateName: ['Ayush Interior', 'Ayush Interiors Navi Mumbai', 'Ayush Interiors Kopar Khairane'],
   description: `Interior designers and home renovation contractors in ${site.city}: modular kitchens, wardrobes, false ceilings, bathrooms and full home interiors.`,
   url: site.url,
   logo: `${site.url}/icon-512.png`,
@@ -97,7 +97,7 @@ const bingToken = import.meta.env.PUBLIC_BING_VERIFICATION;
     <!-- Floating bar (appears after the hero) -->
     <div id="floatbar" class="pointer-events-none fixed inset-x-0 top-3 z-[60] -translate-y-24 px-3 transition-transform duration-500 ease-[var(--ease-out-hm)] md:top-4 md:px-5">
       <div class="flex items-center justify-between">
-        <a href="/" class="pointer-events-auto rounded-full bg-white/85 px-4 py-3 text-[0.95rem] shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md" aria-label="Ayush Interior home"><Logo /></a>
+        <a href="/" class="pointer-events-auto rounded-full bg-white/85 px-4 py-3 text-[0.95rem] shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md" aria-label="Ayush Interiors home"><Logo /></a>
         <div class="pointer-events-auto flex items-center gap-2">
           <a href={quoteHref} class="pill hidden shadow-[0_6px_24px_-12px_rgb(0_0_0/0.35)] sm:inline-flex">Get a Quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
           <button type="button" data-menu-open class="grid size-12 place-items-center rounded-full bg-ink text-white shadow-[0_6px_24px_-12px_rgb(0_0_0/0.5)]" aria-label="Open menu"><Icon name="menu" size={22} /></button>

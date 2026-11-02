@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const { s } = Astro.props as { s: ServicePage };
 const from = s.prices[0].range.split('–')[0].trim();
 // Keep titles under ~62 characters so Google doesn't truncate them.
-const title = [`${s.keyword} | From ${from} | Ayush Interior`, `${s.keyword} | Ayush Interior`].find((t) => t.length <= 62) ?? `${s.keyword} | Ayush Interior`;
+const title = [`${s.keyword} | From ${from} | Ayush Interiors`, `${s.keyword} | Ayush Interiors`].find((t) => t.length <= 62) ?? `${s.keyword} | Ayush Interiors`;
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Services', href: '/services' }, { name: s.name, href: `/services/${s.slug}` }];
 const others = servicePages.filter((x) => x.slug !== s.slug).slice(0, 4);
 const schema = [
@@ -40,9 +40,9 @@ const schema = [
             <a href="#quote" class="pill pill-dark min-w-[15rem]">Get a free quote <span class="dot"><Icon name="arrow" size={17} /></span></a>
             <a href={wa(`Hi ${site.name}, I'm interested in ${s.name.toLowerCase()}.`)} target="_blank" rel="noopener" data-track="click_whatsapp" class="pill">WhatsApp us <span class="dot !bg-whatsapp !text-white"><Icon name="whatsapp" size={17} /></span></a>
           </div>
-          <p class="mt-6 text-[0.85rem] text-grey">Starting from <strong class="text-ink">{s.prices[0].range.split('–')[0].trim()}</strong> · {site.rating}★ from {site.reviews} Google reviews</p>
+          <p class="mt-6 text-[0.85rem] text-grey">Starting from <strong class="text-ink">{s.prices[0].range.split('–')[0].trim()}</strong> {site.reviews > 0 && ` · ${site.rating}★ from ${site.reviews} Google reviews`} · Office in {site.locality}</p>
         </div>
-        <img src={img(s.img, 1100, 1000)} srcset={srcset(s.img, [600, 900, 1300], 0.9)} sizes="(min-width:1024px) 45vw, 100vw" alt={`${s.name} by Ayush Interior in ${site.city}`} width="1100" height="1000" fetchpriority="high" class="aspect-[11/10] w-full rounded-[14px] object-cover" />
+        <img src={img(s.img, 1100, 1000)} srcset={srcset(s.img, [600, 900, 1300], 0.9)} sizes="(min-width:1024px) 45vw, 100vw" alt={`${s.name} by Ayush Interiors in ${site.city}`} width="1100" height="1000" fetchpriority="high" class="aspect-[11/10] w-full rounded-[14px] object-cover" />
       </div>
     </div>
   </section>

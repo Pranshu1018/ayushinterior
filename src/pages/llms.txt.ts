@@ -8,7 +8,7 @@ import { faqs } from '../data/content';
 export function GET() {
   const body = `# ${site.name}
 
-> ${site.name} is an interior design and home renovation company in ${site.city}, ${site.state}, India, working since ${site.founded}. One in-house team designs and builds full home interiors, modular kitchens, wardrobes, false ceilings, bathrooms, painting, flooring, pooja units and electrical/plumbing work, with a free site visit, an itemised written quote, staged payments and a 10-year warranty on woodwork.
+> ${site.name} is an interior design and home renovation company based in ${site.locality}, ${site.city}, ${site.state}, India (not to be confused with similarly named firms in Mumbai, Thane or Palghar), working since ${site.founded}. One in-house team designs and builds full home interiors, modular kitchens, wardrobes, false ceilings, bathrooms, painting, flooring, pooja units, electrical/plumbing work and society maintenance, with a free site visit, an itemised written quote, staged payments and a 10-year warranty on woodwork.
 
 ## Contact
 - Phone / WhatsApp: ${site.phone}

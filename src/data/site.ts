@@ -1,31 +1,34 @@
-// TODO-REAL: address, phone, coordinates, rating and social links are placeholders. Replace before launch.
-// Name, address and phone must match the Google Business Profile character for character.
+// Business details. Name, address and phone must match the Google Business Profile and Justdial
+// character for character (NAP consistency is a core local ranking signal).
 
 export const site = {
-  name: 'Ayush Interior',
-  legal: 'Ayush Interior',
+  name: 'Ayush Interiors',
+  legal: 'Ayush Interiors', // TODO-REAL: if the registered firm is "Aayush Enterprises", put that here (shown only in schema/legal text)
   url: 'https://ayushinteriors.in',
   city: 'Navi Mumbai',
   state: 'Maharashtra',
   regionCode: 'IN-MH',
-  addressLines: ['Shop 4, Sector 17', 'Vashi, Navi Mumbai 400703'],
-  street: 'Shop 4, Sector 17',
-  locality: 'Vashi',
-  postalCode: '400703',
-  geo: { lat: 19.0771, lng: 72.9988 }, // TODO-REAL: copy the exact pin from your Google Business Profile
-  phone: '+91 98765 43210',
-  phoneHref: 'tel:+919876543210',
-  whatsapp: '919876543210',
-  email: 'hello@ayushinteriors.in',
+  addressLines: ['Room No. 247, Sector 1', 'Kopar Khairane, Navi Mumbai 400709'],
+  street: 'Room No. 247, Sector 1',
+  locality: 'Kopar Khairane',
+  postalCode: '400709',
+  geo: { lat: 19.1036, lng: 73.0103 }, // TODO-REAL: copy the exact pin from Google Maps (right-click your listing's pin)
+  phone: '+91 91374 47669',
+  phoneHref: 'tel:+919137447669',
+  whatsapp: '919137447669',
+  email: 'hello@ayushinteriors.in', // TODO-REAL: confirm this mailbox exists, or replace with the email on your Google profile
   hours: 'Mon–Sat, 9am–8pm',
   hoursSpec: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:00', closes: '20:00' },
-  founded: 2014,
-  rating: 4.9,
-  reviews: 212,
-  googleUrl: 'https://g.page/r/your-profile-id',
-  mapUrl: 'https://maps.google.com/?cid=your-cid',
-  social: { Instagram: 'https://instagram.com/ayushinteriors', Facebook: 'https://facebook.com/ayushinteriors', YouTube: 'https://youtube.com/@ayushinteriors', Pinterest: 'https://pinterest.com/ayushinteriors' },
-  localities: ['Vashi', 'Nerul', 'Seawoods', 'CBD Belapur', 'Kharghar', 'Sanpada', 'Airoli', 'Ghansoli', 'Kopar Khairane', 'Panvel', 'Ulwe', 'Kamothe', 'Kalamboli', 'Taloja', 'Juinagar', 'Dronagiri'],
+  founded: 2014, // TODO-REAL: confirm the year you started; it is shown on the site and repeated by AI tools
+  // Ratings are shown only when real (reviews > 0). Update as your Google reviews grow.
+  rating: 0,
+  reviews: 0,
+  googleUrl: 'https://share.google/UQRyoMcvsTHnwAmyI', // TODO-REAL: replace with the maps.app.goo.gl "Share" link from Google Maps
+  googleReviewUrl: 'https://share.google/UQRyoMcvsTHnwAmyI', // TODO-REAL: use the "Ask for reviews" link from Google Business Profile
+  mapUrl: 'https://share.google/UQRyoMcvsTHnwAmyI',
+  justdialReviewUrl: 'https://jsdl.in/RSL-ZOO1793449148',
+  social: { Instagram: 'https://www.instagram.com/ayushinteriors.co/', Justdial: 'https://jsdl.in/RSL-ZOO1793449148' }, // TODO-REAL: add Facebook, YouTube, Houzz, IndiaMART as you create them
+  localities: ['Kopar Khairane', 'Ghansoli', 'Vashi', 'Sanpada', 'Turbhe', 'Mahape', 'Airoli', 'Rabale', 'Nerul', 'Seawoods', 'Juinagar', 'CBD Belapur', 'Kharghar', 'Kamothe', 'Kalamboli', 'Panvel', 'Ulwe', 'Taloja', 'Dronagiri'],
 } as const;
 
 export const wa = (text: string) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;

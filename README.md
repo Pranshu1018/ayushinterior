@@ -1,4 +1,4 @@
-# Ayush Interior website
+# Ayush Interiors website
 
 Single-page site modelled on the Housemood Framer template (layout, type, palette and preloader), rebuilt in Astro 6 + Tailwind v4 with a Preact quote form.
 
@@ -25,8 +25,8 @@ Preloader → Hero → Numbers → Our Projects (drag carousel) → Our Services
 The quote form posts to `PUBLIC_LEAD_WEBHOOK`; set it up with `docs/lead-webhook.gs` (Google Sheet + email, free). UTM tags, gclid and fbclid are saved with each lead. `/thank-you` is the conversion page for Google Ads / Meta.
 
 ## SEO
-- 9 service pages (`/services/<slug>`) and 8 Navi Mumbai area pages (`/interior-designers/<slug>`), content in `src/data/pages.ts`
+- 10 service pages (`/services/<slug>`) and 10 Navi Mumbai area pages (`/interior-designers/<slug>`), content in `src/data/pages.ts`
 - Structured data: LocalBusiness (with geo, hours, area served), WebSite, Service, BreadcrumbList, FAQPage
 - `/sitemap.xml`, `/robots.txt` (AI crawlers allowed), `/llms.txt` (facts for AI assistants), geo meta tags, icons + manifest
 - Search Console / Bing verification via `PUBLIC_GSC_VERIFICATION` / `PUBLIC_BING_VERIFICATION`
-- Launch steps (Search Console, Google Business Profile, reviews, citations): `docs/SEO-LAUNCH-CHECKLIST.md`
+- Full Local SEO + AEO + GEO strategy, 30/60/90-day roadmap and KPIs: `docs/LOCAL-SEO-AEO-GEO-STRATEGY.md`
